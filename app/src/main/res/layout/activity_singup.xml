@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Singup">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="411dp"
+        android:layout_height="100dp"
+        android:background="#E2819F"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivLogoPic2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/almalogopic"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+    <TextView
+        android:id="@+id/tvSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="דף הרשמה"
+        android:textColor="#E2819F"
+        android:textSize="50dp"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="170dp" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="שם פרטי"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="256dp" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="שם משפחה"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="320dp" />
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="מספר טלפון"
+        android:inputType="phone"
+        android:paddingStart="115dp"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="383dp" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="כתובת אימייל"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="451dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="סיסמה"
+        android:inputType="textPassword"
+        android:paddingStart="153dp"
+        tools:layout_editor_absoluteX="97dp"
+        tools:layout_editor_absoluteY="527dp" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="234dp"
+        android:layout_height="89dp"
+        android:text="הירשם"
+        android:textSize="30dp"
+        android:fontFamily="serif"
+        android:backgroundTint="#E2819F"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="603dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
