@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".about">
+
+    <LinearLayout
+        android:id="@+id/llC1"
+        android:layout_width="410dp"
+        android:layout_height="86dp"
+        android:background="#E2819F"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.003">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivLogoPic"
+        android:layout_width="104dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/almalogopic" />
+
+    <TextView
+        android:id="@+id/tvHomePage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="152dp"
+        android:fontFamily="serif"
+        android:text="אודות האפליקציה"
+        android:textColor="#E2819F"
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="413dp"
+        android:layout_height="436dp"
+        android:text="מטרת האפליקציה שלי היא לעזור לאמא שלי לקבל את ההזמנות של הלקוחות שלה בצורה נוחה, מרוכזת, ומסודרת. \n \n בכניסה ראשונית לאפליקצייה שלי יש צורך להיכנס לדף ההרשמה ולהירשם, במידה וזוהי לא הפעם הראשונה בה המשתמש נכנס לאפליקצייה ישנה אופציה להיכנס ישר לדף ההתחברות. \nלאחר שהמשתמש נרשם/ התחבר לפרופיל ומעוניין להזמין מופיע הדף בו המשתמש בוחר את סוג המוצרים בהם הוא מעוניין לרכוש, לאחר מכן יוצג בפני המשתמש דף המכיל את כל המוצרים הנכנסים בקטגוריה בה הוא בחר (עוגות/ עוגיות).\nהמשתמש יוכל להיכנס לכל מוצר ולקרוא את המידע המסופח לו וכמובן גם להכניסו לתוך סל הקניות.\nבכל שלב שהמשתמש יהיה מעוניין להכניס לעגלה מוצרים הוא יוכל לראות שם את כל הפריטים שהוא הוסיף וגם את סכום כל המוצרים הנמצאים בעלגה.\nלבסוף למשתמש תהיה אופציה להכניס את התאריך שבו הוא מעוניין שההזמנה תסופק ואם יש לו היערות בנוסף לגבי ההזמנה יוכל לציין. המשתמש יוכל ללחוץ על כפתור ההזמנה ובכך הזמנתו נשלחת אל אמא שלי להכנה ביחד עם כל ההיערות. בנוסף לאחר כל הזמנה מספר הטלפון של אמא שלי יופיע על המסך על מנת ליצור איתה קשר."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.707" />
+
+    <Button
+        android:id="@+id/btnGoBack"
+        android:layout_width="283dp"
+        android:layout_height="88dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="חזור"
+        android:textSize="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.956" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

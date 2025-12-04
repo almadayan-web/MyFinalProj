@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnsu;
+    Button btnsu, btna, btnli;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        btnsu=findViewById(R.id.btnsu);
+        btnsu = findViewById(R.id.btnsu);
         btnsu.setOnClickListener(this);
+        btna = findViewById(R.id.btna);
+        btna.setOnClickListener(this);
+        btnli = findViewById(R.id.btnli);
+        btnli.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        Intent GO
+
+        if (view.getId() == btnli.getId()) {
+            Intent go = new Intent(this, login.class);
+            startActivity(go);
+        }
+        if (view.getId() == btnsu.getId()) {
+            Intent go = new Intent(this, Singup.class);
+            startActivity(go);
+        }
+        if (view.getId() == btna.getId()) {
+            Intent go = new Intent(this, about.class);
+            startActivity(go);
+        }
     }
 }
