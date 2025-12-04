@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "16993933750",
+    "firebase_url": "https://myfinalproj-86f89-default-rtdb.firebaseio.com",
+    "project_id": "myfinalproj-86f89",
+    "storage_bucket": "myfinalproj-86f89.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16993933750:android:34ffe5f81ecfa91e560917",
+        "android_client_info": {
+          "package_name": "com.alma.myfinalproj"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7QrluVh-eyOR5BMWm-c9eJYirbvYu7Yk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
