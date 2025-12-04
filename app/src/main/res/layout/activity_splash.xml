@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivLogoPic3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -22,7 +22,7 @@
         app:srcCompat="@drawable/almalogopic" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/pbS"
         style="?android:attr/progressBarStyle"
         android:layout_width="70dp"
         android:layout_height="72dp"

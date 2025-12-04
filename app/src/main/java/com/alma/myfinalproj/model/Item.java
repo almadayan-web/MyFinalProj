@@ -5,7 +5,7 @@ public class Item {
     protected String name;
     protected String type;
     protected String size;
-    protected Double price;
+    protected double price;
     protected String details;
     protected String pic;
 
