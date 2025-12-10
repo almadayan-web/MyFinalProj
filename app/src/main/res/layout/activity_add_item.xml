@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/llC1"
-        android:layout_width="410dp"
+        android:layout_width="411dp"
         android:layout_height="86dp"
         android:background="#E2819F"
         android:orientation="vertical"
@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.003">
+        app:layout_constraintVertical_bias="0.001">
 
     </LinearLayout>
 
@@ -31,7 +31,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.084"
+        app:layout_constraintVertical_bias="0.073"
         app:srcCompat="@drawable/almalogopic" />
 
     <TextView
@@ -48,10 +48,10 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.199" />
+        app:layout_constraintVertical_bias="0.2" />
 
     <Spinner
-        android:id="@+id/spType"
+        android:id="@+id/spIType"
         android:layout_width="260dp"
         android:layout_height="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,29 +59,29 @@
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298" />
+        app:layout_constraintVertical_bias="0.288" />
 
     <EditText
         android:id="@+id/etIname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
         android:hint="Item Name"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.392" />
+        app:layout_constraintVertical_bias="0.391" />
 
     <EditText
-        android:id="@+id/etPrice"
+        android:id="@+id/etIPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
         android:hint="Item Price"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.034"
@@ -90,12 +90,12 @@
         app:layout_constraintVertical_bias="0.459" />
 
     <EditText
-        android:id="@+id/etSize"
+        android:id="@+id/etISize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
         android:hint="Item Size"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.034"
@@ -104,12 +104,12 @@
         app:layout_constraintVertical_bias="0.527" />
 
     <EditText
-        android:id="@+id/etDetails"
+        android:id="@+id/etIDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
         android:hint="Item Details"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.034"
@@ -118,16 +118,54 @@
         app:layout_constraintVertical_bias="0.595" />
 
     <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="172dp"
-        android:layout_height="57dp"
-        android:text="הוסף"
-        android:fontFamily="serif"
-        android:textSize="25dp"
+        android:id="@+id/btnCamera"
+        android:layout_width="116dp"
+        android:layout_height="56dp"
         android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="מצלמה"
+        android:textSize="23.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/llC1"
+        app:layout_constraintVertical_bias="0.719" />
+
+    <Button
+        android:id="@+id/btnGallery"
+        android:layout_width="116dp"
+        android:layout_height="56dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="גלריה"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.826" />
+
+    <ImageView
+        android:id="@+id/ivIPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="486dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnAddItem"
+        android:layout_width="172dp"
+        android:layout_height="57dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="הוסף"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
