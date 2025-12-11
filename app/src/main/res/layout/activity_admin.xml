@@ -50,7 +50,7 @@
         app:layout_constraintVertical_bias="0.22" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnGoAddItem"
         android:layout_width="180dp"
         android:layout_height="56dp"
         android:backgroundTint="#E2819F"

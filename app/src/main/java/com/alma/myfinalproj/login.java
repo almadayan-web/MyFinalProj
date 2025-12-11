@@ -105,11 +105,22 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
                 editor.commit();
 
+                if(email.contains("almaDayan@gmail.com" )&& password.contains("123456")){
 
-                Intent mainIntent = new Intent(login.this, MainActivity.class);
-                /// Clear the back stack (clear history) and start the MainActivity
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(mainIntent);
+                    Intent mainIntent = new Intent(login.this, AdminActivity.class);
+                    /// Clear the back stack (clear history) and start the MainActivity
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(mainIntent);
+                    finish();
+
+                }
+else {
+
+                    Intent mainIntent = new Intent(login.this, MainActivity.class);
+                    /// Clear the back stack (clear history) and start the MainActivity
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(mainIntent);
+                }
             }
 
 

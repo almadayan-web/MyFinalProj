@@ -52,6 +52,7 @@
 
     <Spinner
         android:id="@+id/spIType"
+        android:entries="@array/ItemType"
         android:layout_width="260dp"
         android:layout_height="72dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -149,10 +150,14 @@
 
     <ImageView
         android:id="@+id/ivIPic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="106dp"
-        tools:layout_editor_absoluteY="486dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.805"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button

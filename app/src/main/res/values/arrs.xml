@@ -2,6 +2,7 @@
 <resources>
 
     <string-array name="ItemType">
+        <item>נא לבחור את סוג המוצר:</item>
         <item>עוגה</item>
         <item>עוגייה</item>
         <item>מריטוצו</item>
