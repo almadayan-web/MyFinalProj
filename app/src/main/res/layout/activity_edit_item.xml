@@ -5,12 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Singup">
+    tools:context=".EditItem">
+
 
     <LinearLayout
-        android:id="@+id/llC2"
+        android:id="@+id/llC1Edit"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
+        android:layout_height="86dp"
         android:background="#E2819F"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,137 +19,161 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.001">
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/ivLogoPic2"
-        android:layout_width="100dp"
-        android:layout_height="95dp"
+        android:id="@+id/ivLogoPicEdit"
+        android:layout_width="104dp"
+        android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.081"
+        app:layout_constraintVertical_bias="0.073"
         app:srcCompat="@drawable/almalogopic" />
 
-
     <TextView
-        android:id="@+id/tvSignUp"
+        android:id="@+id/tvAddItemEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:fontFamily="serif"
-        android:text="דף הרשמה"
+        android:text="עריכת פריט"
         android:textColor="#E2819F"
-        android:textSize="50dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintVertical_bias="0.2" />
+
+    <Spinner
+        android:id="@+id/spITypeEdit"
+        android:entries="@array/ItemType"
+        android:layout_width="260dp"
+        android:layout_height="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.288" />
 
     <EditText
-        android:id="@+id/etFname"
+        android:id="@+id/etInameEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="שם פרטי"
+        android:hint="Item Name"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.429" />
+        app:layout_constraintVertical_bias="0.391" />
 
     <EditText
-        android:id="@+id/etLname"
+        android:id="@+id/etIPriceEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="שם משפחה"
+        android:hint="Item Price"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.519" />
+        app:layout_constraintVertical_bias="0.459" />
 
     <EditText
-        android:id="@+id/etPhone"
+        android:id="@+id/etISizeEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="מספר טלפון"
-        android:inputType="phone"
-        android:paddingStart="115dp"
+        android:hint="Item Size"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.607" />
+        app:layout_constraintVertical_bias="0.527" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etIDetailsEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="כתובת אימייל"
-        android:inputType="textEmailAddress"
+        android:hint="Item Details"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.702" />
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="סיסמה"
-        android:inputType="textPassword"
-        android:paddingStart="153dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.794" />
+        app:layout_constraintVertical_bias="0.595" />
 
     <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="187dp"
-        android:layout_height="85dp"
+        android:id="@+id/btnCameraEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginBottom="116dp"
         android:backgroundTint="#E2819F"
         android:fontFamily="serif"
-        android:text="הרשמה"
-        android:textSize="30dp"
+        android:text="מצלמה"
+        android:textSize="23.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.928"
+        app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintTop_toTopOf="@+id/llC1"
+        app:layout_constraintVertical_bias="0.719" />
 
     <Button
-        android:id="@+id/btnGoBack"
-        android:layout_width="187dp"
-        android:layout_height="85dp"
+        android:id="@+id/btnGalleryEdit"
+        android:layout_width="116dp"
+        android:layout_height="56dp"
         android:backgroundTint="#E2819F"
         android:fontFamily="serif"
-        android:text="חזור"
-        android:textSize="30dp"
+        android:text="גלריה"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.717" />
+
+    <ImageView
+        android:id="@+id/ivIPicEdit"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.805"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnAddItemEdit"
+        android:layout_width="172dp"
+        android:layout_height="57dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="שמור שינויים"
+        android:textSize="22.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

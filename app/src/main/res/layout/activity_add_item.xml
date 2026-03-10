@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/llC1"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="86dp"
         android:background="#E2819F"
         android:orientation="vertical"
@@ -19,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.001">
-
     </LinearLayout>
 
     <ImageView
@@ -120,7 +119,7 @@
 
     <Button
         android:id="@+id/btnCamera"
-        android:layout_width="116dp"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:backgroundTint="#E2819F"
         android:fontFamily="serif"

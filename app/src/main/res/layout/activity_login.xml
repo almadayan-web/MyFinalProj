@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/llC2"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="96dp"
         android:background="#E2819F"
         android:orientation="vertical"

@@ -1,6 +1,8 @@
 package com.alma.myfinalproj.model;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item  implements Serializable {
     protected String id;
     protected String name;
     protected String type;

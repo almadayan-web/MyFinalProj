@@ -1,0 +1,208 @@
+package com.alma.myfinalproj;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.alma.myfinalproj.adapters.CartAdapter;
+import com.alma.myfinalproj.model.Cart;
+import com.alma.myfinalproj.model.Order;
+import com.alma.myfinalproj.model.User;
+import com.alma.myfinalproj.services.DatabaseService;
+import com.google.firebase.auth.FirebaseAuth;
+
+public class CartActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Button btnGoBackCart;
+
+    RecyclerView rcCart;
+
+    Cart cart = null;
+    Button btnBePayment;
+    TextView tvprice;
+
+
+    private CartAdapter cartAdapter;
+
+    DatabaseService databaseService;
+
+    String uid;
+    User user = null;
+
+    FirebaseAuth mAuth;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_cart);
+
+        btnGoBackCart = findViewById(R.id.btnGoBackCart);
+        btnGoBackCart.setOnClickListener(this);
+
+        btnBePayment = findViewById(R.id.btnOrderAndPay);
+        btnBePayment.setOnClickListener(this);
+
+
+        rcCart = findViewById(R.id.rvCart);
+        tvprice = findViewById(R.id.tvTotal);
+
+
+        rcCart.setLayoutManager(new LinearLayoutManager(this));
+
+
+        mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getCurrentUser().getUid();
+
+
+
+        databaseService = DatabaseService.getInstance();
+        databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User object) {
+                user=new User(object);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                return;
+            }
+        });
+
+
+
+
+
+
+
+
+        // אתחול סל ריק בתחילה כדי למנוע NullPointer
+
+
+        // טען את הסל מהמסד
+        databaseService.getCart(uid, new DatabaseService.DatabaseCallback<Cart>() {
+            @Override
+            public void onCompleted(Cart resultCart) {
+                if (resultCart != null && resultCart.getItems() != null) {
+                    cart = resultCart;
+
+                    Toast.makeText(CartActivity.this, "" + cart.toString(), Toast.LENGTH_SHORT).show();
+                } else cart = new Cart();
+
+                cartAdapter = new CartAdapter(CartActivity.this, cart);
+                rcCart.setAdapter(cartAdapter);
+                cartAdapter.notifyDataSetChanged();
+                tvprice.setText(cart.getTotalPrice() + "");
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                cart = new Cart();
+                Log.e("error", e.getMessage());
+                Toast.makeText(CartActivity.this, "שגיאה בטעינת הסל", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        //adapter = new ItemsAdapter(cart.getItems());
+        //rcCart.setAdapter(adapter);
+    }
+
+    public void beyomdPayment(View view) {
+        Intent intent = new Intent(CartActivity.this, Payment.class);
+        intent.putExtra("total", cart.getTotal());
+        startActivity(intent);
+    }
+
+
+    private void processOrder() {
+        if (cart == null || cart.getItems().isEmpty()) {
+            Toast.makeText(this, "העגלה ריקה!", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            String orderId = databaseService.generateOrderId();
+            Order order = new Order(orderId, cart.getItems(), cart.getTotal(), "new", user, 0);
+
+            order.setTimestamp(System.currentTimeMillis());
+            databaseService.createNewOreder(order, new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void object) {
+                    Toast.makeText(CartActivity.this, "הזמנה נשמרה!", Toast.LENGTH_SHORT).show();
+
+                   // goUpdateCart(cart);
+                    cart = new Cart();
+
+
+
+
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(CartActivity.this, "שגיאה בשמירת ההזמנה", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
+        }
+    }
+
+
+    public void goUpdateCart(Cart cart) {
+        databaseService.updateCart(cart, uid, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view == btnBePayment) {
+            processOrder();
+            Intent go = new Intent(CartActivity.this, Payment.class);
+            go.putExtra("total", cart.getTotal());
+            startActivity(go);
+        }
+
+        else if (view == btnGoBackCart) {
+
+            Intent go = new Intent(CartActivity.this, MainActivity.class);
+
+            startActivity(go);
+        }
+
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+}
+
+

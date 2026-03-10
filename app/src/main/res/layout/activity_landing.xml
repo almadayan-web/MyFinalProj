@@ -5,12 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Landing">
 
 
     <LinearLayout
         android:id="@+id/llC1"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="86dp"
         android:background="#E2819F"
         android:orientation="vertical"
@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.003">
+        app:layout_constraintVertical_bias="0.001">
 
     </LinearLayout>
 
@@ -41,7 +41,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="152dp"
         android:fontFamily="serif"
-        android:text="דף הבית"
+        android:text="דף כניסה"
         android:textColor="#E2819F"
         android:textSize="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,6 +54,7 @@
         android:layout_width="242dp"
         android:layout_height="89dp"
         android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
         android:text="התחבר"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -68,6 +69,7 @@
         android:layout_width="242dp"
         android:layout_height="89dp"
         android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
         android:text="הירשם"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -82,6 +84,7 @@
         android:layout_width="242dp"
         android:layout_height="89dp"
         android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
         android:text="אודות"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"

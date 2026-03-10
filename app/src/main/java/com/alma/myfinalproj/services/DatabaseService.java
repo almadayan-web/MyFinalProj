@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import com.alma.myfinalproj.model.Cart;
 import com.alma.myfinalproj.model.Item;
+import com.alma.myfinalproj.model.Order;
 import com.alma.myfinalproj.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -38,8 +39,10 @@ public class DatabaseService {
     /// paths for different data types in the database
     /// @see DatabaseService#readData(String)
     private static final String USERS_PATH = "users",
-                                ITEMS_PATH = "items",
-                                CARTS_PATH = "carts";
+                                ORDER_PATH="orders",
+                                USER_ORDER_PATH="userorders",
+                                ITEMS_PATH = "items";
+
 
     /// callback interface for database operations
     /// @param <T> the type of the object to return
@@ -303,6 +306,25 @@ public class DatabaseService {
         getData(USERS_PATH + "/" + uid, User.class, callback);
     }
 
+
+
+    /// get a user from the database
+    /// @param uid the id of the user to get
+    /// @param callback the callback to call when the operation is completed
+    ///               the callback will receive the user object
+    ///             if the operation fails, the callback will receive an exception
+    /// @see DatabaseCallback
+    /// @see User
+    public void getUser( @NotNull final DatabaseCallback<User> callback) {
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+      String  uid=mAuth.getCurrentUser().getUid();
+
+
+        getData(USERS_PATH + "/" + uid, User.class, callback);
+    }
+
+
     /// get all the users from the database
     /// @param callback the callback to call when the operation is completed
     ///              the callback will receive a list of user objects
@@ -446,71 +468,108 @@ public class DatabaseService {
 
     // region cart section
 
+
+
+
+
+
     /// create a new cart in the database
     /// @param cart the cart object to create
     /// @param callback the callback to call when the operation is completed
     ///               the callback will receive void
     ///              if the operation fails, the callback will receive an exception
+    /// @return void
     /// @see DatabaseCallback
     /// @see Cart
-    public void createNewCart(@NotNull final Cart cart, @Nullable final DatabaseCallback<Void> callback) {
-        writeData(CARTS_PATH + "/" + cart.toString(), cart, callback);
+    public void updateCart(@NotNull final Cart cart,String uid ,@Nullable final DatabaseCallback<Void> callback) {
+        writeData(USERS_PATH+"/" + uid+"/cart", cart, callback);
     }
 
-    /// get a cart from the database
-    /// @param cartId the id of the cart to get
+
+
+    /// create a new cart in the database
+    /// @param cart the cart object to create
     /// @param callback the callback to call when the operation is completed
-    ///                the callback will receive the cart object
-    ///               if the operation fails, the callback will receive an exception
+    ///               the callback will receive void
+    ///              if the operation fails, the callback will receive an exception
+    /// @return void
     /// @see DatabaseCallback
     /// @see Cart
-    public void getCart(@NotNull final String cartId, @NotNull final DatabaseCallback<Cart> callback) {
-        getData(CARTS_PATH + "/" + cartId, Cart.class, callback);
+    public void getCart(@NotNull final String uid ,@Nullable final DatabaseCallback<Cart> callback) {
+        getData(USERS_PATH +"/"+ uid+"/cart", Cart.class,callback);
     }
 
-    /// get all the carts from the database
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive a list of cart objects
-    ///
-    public void getCartList(@NotNull final DatabaseCallback<List<Cart>> callback) {
-        getDataList(CARTS_PATH, Cart.class, callback);
+
+
+
+
+
+
+    // endregion cart section
+
+
+    /// generate a new id for a new item in the database
+    /// @return a new id for the item
+    /// @see #generateNewId(String)
+    /// @see Item
+    public String generateOrderId() {
+        return generateNewId(ORDER_PATH);
     }
 
-    /// get all the carts of a specific user from the database
-    /// @param uid the id of the user to get the carts for
+    /// create a new item in the database
+    /// @param Order the item object to create
     /// @param callback the callback to call when the operation is completed
-    public void getUserCartList(@NotNull String uid, @NotNull final DatabaseCallback<List<Cart>> callback) {
-        getCartList(new DatabaseCallback<>() {
-            @Override
-            public void onCompleted(List<Cart> carts) {
-                carts.removeIf(cart -> !Objects.equals(cart.getId(), uid));
-                callback.onCompleted(carts);
-            }
+    ///              the callback will receive void
+    ///             if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see Item
+    public void createNewOreder(@NotNull final Order order, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(ORDER_PATH+"/" + order.getOrderId(), order, callback);
+        writeData(USER_ORDER_PATH+"/" + order.getUser().getId() + "/" + order.getOrderId(), order, callback);
 
-            @Override
-            public void onFailed(Exception e) {
-                callback.onFailed(e);
+    }
+
+
+
+
+    public void getUserOrders(@NotNull final String uid, @NotNull final DatabaseCallback<List<Order>> callback) {
+        readData(USER_ORDER_PATH+"/" + uid).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
             }
+            List<Order> orders = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Order order = dataSnapshot.getValue(Order.class);
+                Log.d(TAG, "Got user: " + order);
+                orders.add(order);
+            });
+
+            callback.onCompleted(orders);
         });
     }
 
 
-    /// generate a new id for a new cart in the database
-    /// @return a new id for the cart
-    /// @see #generateNewId(String)
-    /// @see Cart
-    public String generateCartId() {
-        return generateNewId(CARTS_PATH);
+    public void getAllOrders(@NotNull final DatabaseCallback<List<Order>> callback) {
+        readData(ORDER_PATH).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Order> orders = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Order order = dataSnapshot.getValue(Order.class);
+                Log.d(TAG, "Got user: " + order);
+                orders.add(order);
+            });
+
+            callback.onCompleted(orders);
+        });
     }
 
-    /// delete a cart from the database
-    /// @param cartId the id of the cart to delete
-    /// @param callback the callback to call when the operation is completed
-    public void deleteCart(@NotNull final String cartId, @Nullable final DatabaseCallback<Void> callback) {
-        deleteData(CARTS_PATH + "/" + cartId, callback);
-    }
-
-    // endregion cart section
 
 }
 

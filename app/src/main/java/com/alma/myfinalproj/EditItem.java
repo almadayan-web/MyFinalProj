@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -26,8 +25,7 @@ import com.alma.myfinalproj.model.Item;
 import com.alma.myfinalproj.services.DatabaseService;
 import com.alma.myfinalproj.utils.ImageUtil;
 
-public class AddItem extends AppCompatActivity {
-
+public class EditItem extends AppCompatActivity {
     private EditText etIname, etIPrice, etISize, etIDetails;
     private Spinner spIType;
     private Button btnGallery, btnCamera, btnAddItem;
@@ -40,15 +38,60 @@ public class AddItem extends AppCompatActivity {
     // constant to compare
     // the activity result code
     int SELECT_PICTURE = 200;
-
+    private Intent takeit;
+    private String itemId="";
+    private Item currentItem=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_add_item);
+        setContentView(R.layout.activity_edit_item);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
 
         InitViews();
+
+
+        takeit=getIntent();
+        itemId=  takeit.getStringExtra("itemId");
+
+        databaseService=DatabaseService.getInstance();
+
+
+
+        if(!itemId.isEmpty()){
+            databaseService.getItem(itemId, new DatabaseService.DatabaseCallback<Item>() {
+                @Override
+                public void onCompleted(Item item) {
+
+                    currentItem=item;
+
+
+                    if(currentItem!=null) {
+                        etIname.setText(currentItem.getName());
+                       // et.setText(currentItem.getType());
+                        etISize.setText(currentItem.getSize());
+                        etIPrice.setText(currentItem.getPrice()+"");
+                        etIDetails.setText(currentItem.getDetails());
+                        ivIPic.setImageBitmap(ImageUtil.convertFromivIPic( currentItem.getPic()));
+                    }
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+
+                }
+            });
+
+        }
+
+
+
 
         /// request permission for the camera and storage
         ImageUtil.requestPermission(this);
@@ -100,9 +143,9 @@ public class AddItem extends AppCompatActivity {
 
                 if (itemName.isEmpty() || itemDetails.isEmpty() ||
                         itemPrice.isEmpty() || itemType.isEmpty() || itemSize.isEmpty()) {
-                    Toast.makeText(AddItem.this, "אנא מלא את כל השדות", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditItem.this, "אנא מלא את כל השדות", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(AddItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
                 }
                 double price = Double.parseDouble(itemPrice);
                 /// generate a new id for the item
@@ -117,12 +160,12 @@ public class AddItem extends AppCompatActivity {
                     @Override
                     public void onCompleted(Void object) {
                         Log.d("TAG", "Item added successfully");
-                        Toast.makeText(AddItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
                         /// clear the input fields after adding the item for the next item
                         Log.d("TAG", "Clearing input fields");
 
-                        Intent intent = new Intent(AddItem.this, AdminActivity.class);
-                    //    startActivity(intent);
+                        Intent intent = new Intent(EditItem.this, AdminActivity.class);
+                        //    startActivity(intent);
 
 
                     }
@@ -130,7 +173,7 @@ public class AddItem extends AppCompatActivity {
                     @Override
                     public void onFailed(Exception e) {
                         Log.e("TAG", "Failed to add item", e);
-                        Toast.makeText(AddItem.this, "Failed to add food", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditItem.this, "Failed to add food", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -138,15 +181,15 @@ public class AddItem extends AppCompatActivity {
     }
 
     private void InitViews() {
-        etIname = findViewById(R.id.etIname);
-        etIPrice = findViewById(R.id.etIPrice);
-        etISize = findViewById(R.id.etISize);
-        etIDetails = findViewById(R.id.etIDetails);
-        spIType = findViewById(R.id.spIType);
-        btnGallery = findViewById(R.id.btnGallery);
-        btnCamera = findViewById(R.id.btnCamera);
-        btnAddItem = findViewById(R.id.btnAddItem);
-        ivIPic = findViewById(R.id.ivIPic);
+        etIname = findViewById(R.id.etInameEdit);
+        etIPrice = findViewById(R.id.etIPriceEdit);
+        etISize = findViewById(R.id.etISizeEdit);
+        etIDetails = findViewById(R.id.etIDetailsEdit);
+        spIType = findViewById(R.id.spITypeEdit);
+        btnGallery = findViewById(R.id.btnGalleryEdit);
+        btnCamera = findViewById(R.id.btnCameraEdit);
+        btnAddItem = findViewById(R.id.btnAddItemEdit);
+        ivIPic = findViewById(R.id.ivIPicEdit);
     }
 
 
@@ -195,4 +238,4 @@ public class AddItem extends AppCompatActivity {
             }
         }
     }
-}
+    }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CartActivity">
+
+    <LinearLayout
+        android:id="@+id/llC2"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:background="#E2819F"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivLogoPic2"
+        android:layout_width="100dp"
+        android:layout_height="95dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.081"
+        app:srcCompat="@drawable/almalogopic" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/rvCart"
+        android:layout_width="407dp"
+        android:layout_height="440dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="145dp"
+        android:layout_height="57dp"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvCart"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnOrderAndPay"
+        android:layout_width="139dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="86dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="תשלום"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnGoBackCart"
+        app:layout_constraintTop_toBottomOf="@+id/rvCart"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btnGoBackCart"
+        android:layout_width="139dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="85dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="חזור"
+        android:textSize="25dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnOrderAndPay"
+        app:layout_constraintEnd_toStartOf="@+id/btnOrderAndPay"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

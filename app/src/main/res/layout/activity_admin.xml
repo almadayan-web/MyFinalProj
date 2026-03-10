@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:id="@+id/llC1"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="86dp"
         android:background="#E2819F"
         android:orientation="vertical"
@@ -51,8 +51,8 @@
 
     <Button
         android:id="@+id/btnGoAddItem"
-        android:layout_width="180dp"
-        android:layout_height="56dp"
+        android:layout_width="191dp"
+        android:layout_height="70dp"
         android:backgroundTint="#E2819F"
         android:fontFamily="serif"
         android:text="הוספת מוצר"
@@ -63,5 +63,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.345" />
+
+    <Button
+        android:id="@+id/btnGoListUser"
+        android:layout_width="201dp"
+        android:layout_height="96dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="רשימת משתמשים"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.942"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+
+    <Button
+        android:id="@+id/btnGoListItem"
+        android:layout_width="202dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="רשימת מוצרים"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.656" />
+
+    <Button
+        android:id="@+id/btnShowOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="פירוט הזמנות"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.794" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

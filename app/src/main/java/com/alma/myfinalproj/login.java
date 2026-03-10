@@ -11,9 +11,6 @@ import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.alma.myfinalproj.services.DatabaseService;
 
@@ -30,6 +27,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
     private String email, password;
+    public  static boolean isAdmin=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +77,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             loginUser(email, password);
         } else if (v.getId() == btnGoBack.getId()) {
             /// Navigate to Register Activity
-            Intent registerIntent = new Intent(login.this, MainActivity.class);
+            Intent registerIntent = new Intent(login.this, Landing.class);
             startActivity(registerIntent);
         }
     }
@@ -106,6 +104,8 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                 editor.commit();
 
                 if(email.contains("almaDayan@gmail.com" )&& password.contains("123456")){
+
+                    isAdmin=true;
 
                     Intent mainIntent = new Intent(login.this, AdminActivity.class);
                     /// Clear the back stack (clear history) and start the MainActivity
