@@ -37,12 +37,14 @@
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/rvCart"
-        android:layout_width="407dp"
-        android:layout_height="440dp"
+        android:layout_width="403dp"
+        android:layout_height="341dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.412">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -89,6 +91,19 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/btnOrderAndPay"
         app:layout_constraintEnd_toStartOf="@+id/btnOrderAndPay"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etDestDate"
+        android:layout_width="184dp"
+        android:layout_height="44dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.845" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

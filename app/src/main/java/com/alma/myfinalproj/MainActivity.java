@@ -16,12 +16,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activitymain2);
 
         btnCakes=findViewById(R.id.btnCakes);
         btnCakes.setOnClickListener(this);
-        btnElse=findViewById(R.id.btnElse);
-        btnElse.setOnClickListener(this);
+        //btnElse=findViewById(R.id.btnElse);
+        //btnElse.setOnClickListener(this);
         btnUserProfile=findViewById(R.id.btnUserProfile);
         btnUserProfile.setOnClickListener(this);
         btnOrder=findViewById(R.id.btnOrder);
@@ -35,10 +35,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent go = new Intent(this, CakesList.class);
                 startActivity(go);
             }
-        if (v.getId() == btnElse.getId()) {
-                Intent go = new Intent(this, ElseList.class);
-                startActivity(go);
-        }
+      //  if (v.getId() == btnElse.getId()) {
+               // Intent go = new Intent(this, ElseList.class);
+              //  startActivity(go);
+       // }
         if (v.getId() == btnUserProfile.getId()) {
             Intent go = new Intent(this, UserProfile.class);
             startActivity(go);

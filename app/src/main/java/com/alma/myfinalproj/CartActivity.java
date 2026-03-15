@@ -1,10 +1,13 @@
 package com.alma.myfinalproj;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,8 @@ import com.alma.myfinalproj.model.Order;
 import com.alma.myfinalproj.model.User;
 import com.alma.myfinalproj.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Calendar;
 
 public class CartActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,6 +49,9 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
     FirebaseAuth mAuth;
 
+    EditText etDestDate;
+
+    String destenationDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,25 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
         rcCart = findViewById(R.id.rvCart);
         tvprice = findViewById(R.id.tvTotal);
+
+        etDestDate=findViewById(R.id.etDestDate);
+        etDestDate.setOnClickListener(v -> {
+
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    CartActivity.this,
+                    (DatePicker view, int y, int m, int d) -> {
+                        etDestDate.setText(d + "/" + (m + 1) + "/" + y);
+                    },
+                    year, month, day
+            );
+
+            datePickerDialog.show();
+        });
 
 
         rcCart.setLayoutManager(new LinearLayoutManager(this));
@@ -135,7 +162,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             return;
         } else {
             String orderId = databaseService.generateOrderId();
-            Order order = new Order(orderId, cart.getItems(), cart.getTotal(), "new", user, 0);
+            Order order = new Order(orderId, cart.getItems(), cart.getTotal(), "new", user, 0,destenationDate);
 
             order.setTimestamp(System.currentTimeMillis());
             databaseService.createNewOreder(order, new DatabaseService.DatabaseCallback<Void>() {
@@ -143,9 +170,9 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 public void onCompleted(Void object) {
                     Toast.makeText(CartActivity.this, "הזמנה נשמרה!", Toast.LENGTH_SHORT).show();
 
-                   // goUpdateCart(cart);
-                    cart = new Cart();
 
+                    cart = new Cart();
+                     goUpdateCart(cart);
 
 
 
@@ -183,6 +210,11 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 
         if (view == btnBePayment) {
+
+            destenationDate=etDestDate.getText().toString();
+            // בדיקות תקינות
+
+
             processOrder();
             Intent go = new Intent(CartActivity.this, Payment.class);
             go.putExtra("total", cart.getTotal());

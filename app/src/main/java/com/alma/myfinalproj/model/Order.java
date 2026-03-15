@@ -15,17 +15,17 @@ public class Order implements Serializable {
     private User user;
 
     private long timestamp;
+    protected String destinationDate;
 
-    public Order(String orderId, List<ItemCart> items, double totalPrice, String status, User user, long timestamp) {
+    public Order(String orderId, List<ItemCart> items, double totalPrice, String status, User user, long timestamp, String destinationDate) {
         this.orderId = orderId;
         this.items = items;
         this.totalPrice = totalPrice;
         this.status = status;
         this.user = user;
         this.timestamp = timestamp;
+        this.destinationDate = destinationDate;
     }
-
-
 
     public Order() {
     }
@@ -37,6 +37,9 @@ public class Order implements Serializable {
         }
         return sum;
     }
+
+
+
 
     public String getOrderId() {
         return orderId;
@@ -98,6 +101,15 @@ public class Order implements Serializable {
         return sdf.format(new Date(this.timestamp));
     }
 
+
+    public String getDestinationDate() {
+        return destinationDate;
+    }
+
+    public void setDestinationDate(String destinationDate) {
+        this.destinationDate = destinationDate;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -107,6 +119,7 @@ public class Order implements Serializable {
                 ", status='" + status + '\'' +
                 ", user=" + user +
                 ", timestamp=" + timestamp +
+                ", destinationDate='" + destinationDate + '\'' +
                 '}';
     }
 }

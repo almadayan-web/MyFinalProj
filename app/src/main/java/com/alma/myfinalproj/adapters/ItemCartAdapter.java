@@ -40,7 +40,13 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         ItemCart item_cart = items.get(position);
-        holder.bind(item_cart);
+
+
+
+        holder.itemCart_image.setImageBitmap(ImageUtil.convertFromivIPic(item_cart.getItem().getPic()));
+        holder.itemCart_name.setText(item_cart.getItem().getName());
+        holder.itemCart_price.setText(item_cart.getItem().getPrice() + "₪");
+        holder.itemCart_amount.setText(String.valueOf(item_cart.getAmount()));
     }
 
     @Override
@@ -61,16 +67,6 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
             itemCart_amount = itemView.findViewById(R.id.itemCart_AmountItemOrder);
         }
 
-        public void bind(final ItemCart item_cart) {
-            Item item = item_cart.getItem();
-            int amount = item_cart.getAmount();
-
-
-
-            itemCart_image.setImageBitmap(ImageUtil.convertFromivIPic(item.getPic()));
-            itemCart_name.setText(item.getName());
-            itemCart_price.setText(item.getPrice() + "₪");
-            itemCart_amount.setText(String.valueOf(amount));
 
 
 
@@ -80,7 +76,8 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
 
 
 
-        }
+
+
 
     }
 }

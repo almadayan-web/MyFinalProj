@@ -51,7 +51,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         // אתחול סל ריק בתחילה כדי למנוע NullPointer
 
 
-        ItemOrderAdapter  itemOrderAdapter = new ItemOrderAdapter(context, order.getItems());
+        ItemCartAdapter  itemOrderAdapter = new ItemCartAdapter(context, order.getItems());
         holder.rcOrderItems.setAdapter(itemOrderAdapter);
 
 
