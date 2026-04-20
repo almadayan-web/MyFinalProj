@@ -532,6 +532,7 @@ public class DatabaseService {
 
     }
 
+
     public void getAllOrders(@NotNull final DatabaseCallback<List<Order>> callback) {
         // Fetch only the most recent 50 orders to prevent OutOfMemoryError
         // We order by timestamp and limit to the last 50 entries.
