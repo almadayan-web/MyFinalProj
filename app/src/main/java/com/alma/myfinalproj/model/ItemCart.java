@@ -2,38 +2,34 @@ package com.alma.myfinalproj.model;
 
 public class ItemCart {
 
-     protected Item item;
-     protected int amount;
+    protected String itemId;
+    protected String itemName;
+    protected double itemPrice;
+    protected int amount;
 
-    public ItemCart(Item item, int amount) {
-        this.item = item;
+    public ItemCart(String itemId, String itemName, double itemPrice, int amount) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
         this.amount = amount;
     }
 
-    public ItemCart() {
-    }
+    public ItemCart() {}
 
-    public Item getItem() {
-        return item;
-    }
+    public String getItemId() { return itemId; }
+    public void setItemId(String itemId) { this.itemId = itemId; }
 
-    public void setItem(Item item) {
-        this.item = item;
-    }
+    public String getItemName() { return itemName; }
+    public void setItemName(String itemName) { this.itemName = itemName; }
 
-    public int getAmount() {
-        return amount;
-    }
+    public double getItemPrice() { return itemPrice; }
+    public void setItemPrice(double itemPrice) { this.itemPrice = itemPrice; }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+    public int getAmount() { return amount; }
+    public void setAmount(int amount) { this.amount = amount; }
 
     @Override
     public String toString() {
-        return "ItemCart{" +
-                "item=" + item +
-                ", amount=" + amount +
-                '}';
+        return "ItemCart{itemId='" + itemId + "', itemName='" + itemName + "', amount=" + amount + '}';
     }
 }

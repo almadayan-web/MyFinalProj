@@ -44,6 +44,7 @@ public class DatabaseService {
                                 ITEMS_PATH = "items";
 
 
+
     /// callback interface for database operations
     /// @param <T> the type of the object to return
     /// @see DatabaseCallback#onCompleted(Object)
@@ -499,12 +500,6 @@ public class DatabaseService {
         getData(USERS_PATH +"/"+ uid+"/cart", Cart.class,callback);
     }
 
-
-
-
-
-
-
     // endregion cart section
 
 
@@ -525,51 +520,39 @@ public class DatabaseService {
     /// @see DatabaseCallback
     /// @see Item
     public void createNewOreder(@NotNull final Order order, @Nullable final DatabaseCallback<Void> callback) {
-        writeData(ORDER_PATH+"/" + order.getOrderId(), order, callback);
-        writeData(USER_ORDER_PATH+"/" + order.getUser().getId() + "/" + order.getOrderId(), order, callback);
-
+        writeData(ORDER_PATH + "/" + order.getOrderId(), order, null);
+        writeData(USER_ORDER_PATH + "/" + order.getUser().getId() + "/" + order.getOrderId(), order, callback);
     }
 
 
 
 
     public void getUserOrders(@NotNull final String uid, @NotNull final DatabaseCallback<List<Order>> callback) {
-        readData(USER_ORDER_PATH+"/" + uid).get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<Order> orders = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                Order order = dataSnapshot.getValue(Order.class);
-                Log.d(TAG, "Got user: " + order);
-                orders.add(order);
-            });
+        getDataList(USER_ORDER_PATH+"/" + uid, Order.class,callback);
 
-            callback.onCompleted(orders);
-        });
     }
 
-
     public void getAllOrders(@NotNull final DatabaseCallback<List<Order>> callback) {
-        readData(ORDER_PATH).get().addOnCompleteListener(task -> {
+        // Fetch only the most recent 50 orders to prevent OutOfMemoryError
+        // We order by timestamp and limit to the last 50 entries.
+        readData(ORDER_PATH).orderByChild("timestamp").limitToLast(50).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.e(TAG, "Error getting data", task.getException());
                 callback.onFailed(task.getException());
                 return;
             }
-            List<Order> orders = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                Order order = dataSnapshot.getValue(Order.class);
-                Log.d(TAG, "Got user: " + order);
-                orders.add(order);
-            });
-
-            callback.onCompleted(orders);
+            List<Order> tList = new ArrayList<>();
+            // Results are returned in ascending order by timestamp.
+            // We iterate and add to the front of the list (index 0) to display newest first.
+            for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
+                Order t = dataSnapshot.getValue(Order.class);
+                if (t != null) {
+                    tList.add(0, t);
+                }
+            }
+            callback.onCompleted(tList);
         });
     }
 
 
 }
-

@@ -1,7 +1,5 @@
 package com.alma.myfinalproj.adapters;
 
-
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.alma.myfinalproj.R;
-import com.alma.myfinalproj.model.Item;
 import com.alma.myfinalproj.model.ItemCart;
-import com.alma.myfinalproj.utils.ImageUtil;
 
 import java.util.List;
 
@@ -38,14 +33,11 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         ItemCart item_cart = items.get(position);
 
-
-
-        holder.itemCart_image.setImageBitmap(ImageUtil.convertFromivIPic(item_cart.getItem().getPic()));
-        holder.itemCart_name.setText(item_cart.getItem().getName());
-        holder.itemCart_price.setText(item_cart.getItem().getPrice() + "₪");
+        holder.itemCart_image.setImageResource(R.drawable.almalogopic); // לוגו קבוע במקום תמונה כבדה
+        holder.itemCart_name.setText(item_cart.getItemName());
+        holder.itemCart_price.setText(item_cart.getItemPrice() + "₪");
         holder.itemCart_amount.setText(String.valueOf(item_cart.getAmount()));
     }
 
@@ -58,7 +50,6 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
         ImageView itemCart_image;
         TextView itemCart_name, itemCart_price, itemCart_amount;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemCart_image = itemView.findViewById(R.id.itemCart_imageItemOrder);
@@ -66,19 +57,5 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
             itemCart_price = itemView.findViewById(R.id.itemCart_priceItemOrder);
             itemCart_amount = itemView.findViewById(R.id.itemCart_AmountItemOrder);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
-

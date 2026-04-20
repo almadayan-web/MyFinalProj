@@ -27,19 +27,20 @@ public class Order implements Serializable {
         this.destinationDate = destinationDate;
     }
 
+
+
+
+
     public Order() {
     }
 
     private double calculateTotalPrice() {
         double sum = 0;
         for (ItemCart item : items) {
-            sum += item.getItem().getPrice()*item.getAmount();
+            sum += item.getItemPrice() * item.getAmount();
         }
         return sum;
     }
-
-
-
 
     public String getOrderId() {
         return orderId;

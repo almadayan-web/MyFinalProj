@@ -1,83 +1,42 @@
 package com.alma.myfinalproj.model;
 
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class Cart {
-
-
-    ArrayList <ItemCart>items;
+    ArrayList<ItemCart> items;
     double total;
 
-
     public Cart(ArrayList<ItemCart> items, double total) {
-
         this.items = items;
         this.total = total;
     }
 
-
-    public Cart(ArrayList<ItemCart> items) {
-
-        this.items = items;
-        this.total = 5;
-    }
-
     public Cart() {
-
-        this.items=new ArrayList<>();
-        this.total=0;
+        this.items = new ArrayList<>();
+        this.total = 0;
     }
-
 
     public ArrayList<ItemCart> getItems() {
         return items;
     }
 
-    public  void addItemToCart(ItemCart itemCart){
+    public void addItemToCart(ItemCart itemCart) {
+        if (itemCart == null) return;
+        if (this.items == null) this.items = new ArrayList<>();
 
-        boolean found=false;
-
-        if (itemCart == null) {
-            //Toast.makeText(Cart.this, "המוצר ktttt ", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
-        if(this.items==null) {
-
-            this.items = new ArrayList<>();
-        }
-            else{
-
-                for (int i = 0; i < this.items.size(); i++) {
-
-                    if (this.items.get(i).getItem().getId().equals(itemCart.getItem().getId())) {
-                        found = true;
-
-                        this.items.get(i).setAmount(this.items.get(i).getAmount() + 1);
-
-                    }
-
-                }
+        boolean found = false;
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getItemId().equals(itemCart.getItemId())) {
+                found = true;
+                this.items.get(i).setAmount(this.items.get(i).getAmount() + 1);
             }
-
-
-            if (!found)
-                this.items.add(itemCart);
         }
+        if (!found) this.items.add(itemCart);
+    }
 
-
-
-    public  void  removeItemFromCart(ItemCart itemCart){
-        if (itemCart == null) {
-            //Toast.makeText(Cart.this, "המוצר ktttt ", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
+    public void removeItemFromCart(ItemCart itemCart) {
+        if (itemCart == null) return;
         this.items.remove(itemCart);
-
     }
 
     public void setItems(ArrayList<ItemCart> items) {
@@ -85,39 +44,16 @@ public class Cart {
     }
 
     public double getTotal() {
-
         double sum = 0;
-
-        if (this.items == null) {
-
-            this.items = new ArrayList<>();
-        } else {
-
-            for (int i = 0; i < this.items.size(); i++) {
-
-                sum += this.items.get(i).getItem().getPrice() * this.items.get(i).getAmount();
-
-
-            }
-
-
-
+        if (this.items == null) return 0;
+        for (ItemCart item : this.items) {
+            sum += item.getItemPrice() * item.getAmount();
         }
         return sum;
     }
 
     public double getTotalPrice() {
-        double totalPrice = 0;
-        for (ItemCart itemOrder : this.items) {
-            totalPrice += itemOrder.getItem().getPrice()*itemOrder.getAmount();
-        }
-        return totalPrice;
-    }
-
-
-
-    public void setTotal() {
-        this.total = getTotal();
+        return getTotal();
     }
 
     public void setTotal(double total) {
@@ -126,10 +62,6 @@ public class Cart {
 
     @Override
     public String toString() {
-        return "Cart{" +
-
-                ", items=" + items +
-                ", total=" + total +
-                '}';
+        return "Cart{items=" + items + ", total=" + total + '}';
     }
 }

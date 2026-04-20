@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AllOrders">
+
+    <LinearLayout
+        android:id="@+id/llC1"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="#E2819F"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001">
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivLogoPic"
+        android:layout_width="104dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="-40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llC1"
+        app:srcCompat="@drawable/almalogopic" />
+
+    <Button
+        android:id="@+id/btnGoBack"
+        android:layout_width="107dp"
+        android:layout_height="87dp"
+        android:text="חזור"
+        android:textSize="25dp"
+        android:fontFamily="serif"
+        android:backgroundTint="#E2819F"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="פירוט הזמנות"
+        android:textColor="#E2819F"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/rvAllOrders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/llC1"
+        app:layout_constraintVertical_bias="0.821" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAllOrders"
+        android:layout_width="413dp"
+        android:layout_height="639dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

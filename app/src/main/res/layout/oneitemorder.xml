@@ -104,12 +104,12 @@
             app:layout_constraintVertical_bias="0.08" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="76dp"
-            android:layout_height="54dp"
+            android:id="@+id/btnEditAmount"
+            android:layout_width="114.2dp"
+            android:layout_height="52dp"
             android:backgroundTint="@color/white"
             android:fontFamily="serif"
-            android:text="ערוך"
+            android:text="ערוך כמות"
             android:textColor="#E2819F"
             android:textSize="15.4dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -120,18 +120,18 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="76dp"
-            android:layout_height="54dp"
+            android:id="@+id/btnDelete"
+            android:layout_width="86dp"
+            android:layout_height="53dp"
             android:backgroundTint="@color/white"
             android:fontFamily="serif"
             android:text="מחק"
             android:textColor="#E2819F"
             android:textSize="15.4dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.753"
+            app:layout_constraintHorizontal_bias="0.79"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="100dp" />
+            tools:layout_editor_absoluteY="101dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

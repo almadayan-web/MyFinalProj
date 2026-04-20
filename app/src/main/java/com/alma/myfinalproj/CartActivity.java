@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alma.myfinalproj.adapters.CartAdapter;
 import com.alma.myfinalproj.model.Cart;
+import com.alma.myfinalproj.model.ItemCart;
 import com.alma.myfinalproj.model.Order;
 import com.alma.myfinalproj.model.User;
 import com.alma.myfinalproj.services.DatabaseService;
@@ -36,8 +40,9 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     RecyclerView rcCart;
 
     Cart cart = null;
-    Button btnBePayment;
+    Button btnBePayment, btnEditAmount, btnDelete;
     TextView tvprice;
+
 
 
     private CartAdapter cartAdapter;
@@ -60,7 +65,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
         btnGoBackCart = findViewById(R.id.btnGoBackCart);
         btnGoBackCart.setOnClickListener(this);
-
+        //btnEditAmount= findViewById(R.id.btnEditAmount);
+        //btnEditAmount.setOnClickListener(this);
+        //btnDelete= findViewById(R.id.btnDelete);
+        //btnDelete.setOnClickListener(this);
         btnBePayment = findViewById(R.id.btnOrderAndPay);
         btnBePayment.setOnClickListener(this);
 
@@ -109,16 +117,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
-
-
-
-
-
-
         // אתחול סל ריק בתחילה כדי למנוע NullPointer
-
-
         // טען את הסל מהמסד
         databaseService.getCart(uid, new DatabaseService.DatabaseCallback<Cart>() {
             @Override
@@ -160,33 +159,41 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         if (cart == null || cart.getItems().isEmpty()) {
             Toast.makeText(this, "העגלה ריקה!", Toast.LENGTH_SHORT).show();
             return;
-        } else {
-            String orderId = databaseService.generateOrderId();
-            Order order = new Order(orderId, cart.getItems(), cart.getTotal(), "new", user, 0,destenationDate);
-
-            order.setTimestamp(System.currentTimeMillis());
-            databaseService.createNewOreder(order, new DatabaseService.DatabaseCallback<Void>() {
-                @Override
-                public void onCompleted(Void object) {
-                    Toast.makeText(CartActivity.this, "הזמנה נשמרה!", Toast.LENGTH_SHORT).show();
-
-
-                    cart = new Cart();
-                     goUpdateCart(cart);
-
-
-
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    Toast.makeText(CartActivity.this, "שגיאה בשמירת ההזמנה", Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
-
         }
+
+        // המרת הפריטים לפריטים קלים (בלי תמונות)
+        List<ItemCart> lightItems = new ArrayList<>();
+        for (ItemCart originalItem : cart.getItems()) {
+            ItemCart light = new ItemCart(
+                    originalItem.getItemId(),
+                    originalItem.getItemName(),
+                    originalItem.getItemPrice(),
+                    originalItem.getAmount()
+            );
+            lightItems.add(light);
+        }
+
+        String orderId = databaseService.generateOrderId();
+        Order order = new Order(orderId, lightItems, cart.getTotal(), "new", user, System.currentTimeMillis(), destenationDate);
+        order.setTimestamp(System.currentTimeMillis());
+
+        databaseService.createNewOreder(order, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                Toast.makeText(CartActivity.this, "הזמנה נשמרה!", Toast.LENGTH_SHORT).show();
+                double total = order.getTotalPrice();
+                cart = new Cart();
+                goUpdateCart(cart);
+                Intent go = new Intent(CartActivity.this, Payment.class);
+                go.putExtra("total", total);
+                startActivity(go);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(CartActivity.this, "שגיאה בשמירת ההזמנה", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -213,22 +220,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
             destenationDate=etDestDate.getText().toString();
             // בדיקות תקינות
-
-
             processOrder();
-            Intent go = new Intent(CartActivity.this, Payment.class);
-            go.putExtra("total", cart.getTotal());
-            startActivity(go);
         }
 
         else if (view == btnGoBackCart) {
 
             Intent go = new Intent(CartActivity.this, MainActivity.class);
-
             startActivity(go);
         }
-
-
     }
 
     @Override
@@ -236,5 +235,3 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         super.onPointerCaptureChanged(hasCapture);
     }
 }
-
-

@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFinalProj">
         <activity
+            android:name=".AllOrders"
+            android:exported="false" />
+        <activity
+            android:name=".ElseList"
+            android:exported="false" />
+        <activity
             android:name=".CartActivity"
             android:exported="false" />
         <activity
@@ -25,9 +31,6 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ElseList"
             android:exported="false" />
         <activity
             android:name=".UsersListActivity"
@@ -45,10 +48,10 @@
             android:name=".UserProfile"
             android:exported="false" />
         <activity
-            android:name=".about"
+            android:name=".About"
             android:exported="false" />
         <activity
-            android:name=".login"
+            android:name=".Login"
             android:exported="false" />
         <activity
             android:name=".Landing"

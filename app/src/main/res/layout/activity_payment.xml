@@ -103,11 +103,11 @@
                 android:id="@+id/spinnerMonth"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="חודש"
-                android:textColor="#0A0F0D"
-                android:textColorHint="#746F72"
                 android:background="#E2819F"
-                android:padding="12dp"/>
+                android:hint="חודש"
+                android:padding="12dp"
+                android:textColor="#0A0F0D"
+                android:textColorHint="#746F72" />
         </LinearLayout>
 
         <!-- Spinner שנה -->

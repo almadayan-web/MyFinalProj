@@ -30,7 +30,7 @@ public class Landing extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
 
         if (view.getId() == btnli.getId()) {
-            Intent go = new Intent(this, login.class);
+            Intent go = new Intent(this, Login.class);
             startActivity(go);
         }
         if (view.getId() == btnsu.getId()) {
@@ -38,7 +38,7 @@ public class Landing extends AppCompatActivity implements View.OnClickListener {
             startActivity(go);
         }
         if (view.getId() == btna.getId()) {
-            Intent go = new Intent(this, about.class);
+            Intent go = new Intent(this, About.class);
             startActivity(go);
         }
     }

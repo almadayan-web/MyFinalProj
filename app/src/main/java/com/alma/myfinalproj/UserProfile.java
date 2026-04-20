@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +43,9 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         btnGoBack.setOnClickListener(this);
 
         selectedUid = getIntent().getStringExtra("USER_UID");
+        String currentUid = FirebaseAuth.getInstance().getUid();
+        isCurrentUser = currentUid != null && currentUid.equals(selectedUid);
+        isCurrentUser = true;
 
         Log.d(TAG, "Selected user: " + selectedUid);
 
@@ -61,7 +65,8 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v.getId() == R.id.btnSubmit) {
             updateUserProfile();
-            return;
+            Intent go = new Intent(this, MainActivity.class);
+            startActivity(go);
         }
         if (v==btnGoBack) {
             Intent go = new Intent(this, MainActivity.class);
@@ -117,7 +122,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         String password = tvUserPassword.getText().toString();
 
 
-
         // Update the user object
         selectedUser.setFname(firstName);
         selectedUser.setLname(lastName);
@@ -125,6 +129,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         selectedUser.setEmail(email);
         selectedUser.setPassword(password);
 
+        updateUserInDatabase(selectedUser);
         // Update the user data in the authentication
         Log.d(TAG, "Updating user profile");
         Log.d(TAG, "Selected user UID: " + selectedUser.getId());

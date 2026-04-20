@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alma.myfinalproj.services.DatabaseService;
 
-public class login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button btnSubmit, btnGoBack;
     EditText etEmail, etPassword;
@@ -77,7 +77,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             loginUser(email, password);
         } else if (v.getId() == btnGoBack.getId()) {
             /// Navigate to Register Activity
-            Intent registerIntent = new Intent(login.this, Landing.class);
+            Intent registerIntent = new Intent(Login.this, Landing.class);
             startActivity(registerIntent);
         }
     }
@@ -107,7 +107,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
 
                     isAdmin=true;
 
-                    Intent mainIntent = new Intent(login.this, AdminActivity.class);
+                    Intent mainIntent = new Intent(Login.this, AdminActivity.class);
                     /// Clear the back stack (clear history) and start the MainActivity
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(mainIntent);
@@ -116,7 +116,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                 }
 else {
 
-                    Intent mainIntent = new Intent(login.this, MainActivity.class);
+                    Intent mainIntent = new Intent(Login.this, MainActivity.class);
                     /// Clear the back stack (clear history) and start the MainActivity
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(mainIntent);

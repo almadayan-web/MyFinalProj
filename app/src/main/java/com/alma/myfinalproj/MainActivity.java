@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.ImageButton;
+import androidx.core.view.GravityCompat;
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     Button btnCakes, btnElse, btnUserProfile, btnOrder;
 
@@ -18,10 +18,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activitymain2);
 
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+        btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
         btnCakes=findViewById(R.id.btnCakes);
         btnCakes.setOnClickListener(this);
-        //btnElse=findViewById(R.id.btnElse);
-        //btnElse.setOnClickListener(this);
+        btnElse=findViewById(R.id.btnElse);
+        btnElse.setOnClickListener(this);
         btnUserProfile=findViewById(R.id.btnUserProfile);
         btnUserProfile.setOnClickListener(this);
         btnOrder=findViewById(R.id.btnOrder);
@@ -35,10 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent go = new Intent(this, CakesList.class);
                 startActivity(go);
             }
-      //  if (v.getId() == btnElse.getId()) {
-               // Intent go = new Intent(this, ElseList.class);
-              //  startActivity(go);
-       // }
+        if (v.getId() == btnElse.getId()) {
+            Intent go = new Intent(this, ElseList.class);
+            startActivity(go);
+        }
         if (v.getId() == btnUserProfile.getId()) {
             Intent go = new Intent(this, UserProfile.class);
             startActivity(go);

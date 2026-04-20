@@ -40,8 +40,24 @@ public class ImageUtil {
             return null;
         }
         Bitmap bitmap = ((BitmapDrawable) postImage.getDrawable()).getBitmap();
+        
+        // Resize bitmap to avoid OutOfMemoryError when syncing with Firebase
+        int maxWidth = 500;
+        int maxHeight = 500;
+        if (bitmap.getWidth() > maxWidth || bitmap.getHeight() > maxHeight) {
+            float aspectRatio = (float) bitmap.getWidth() / (float) bitmap.getHeight();
+            int width = maxWidth;
+            int height = Math.round(maxWidth / aspectRatio);
+            if (height > maxHeight) {
+                height = maxHeight;
+                width = Math.round(maxHeight * aspectRatio);
+            }
+            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+        }
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        // Use lower quality to reduce string size
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
@@ -50,10 +66,14 @@ public class ImageUtil {
     /// @param base64Code The base64 string to convert
     /// @return The image represented by the base64 string
     public static @Nullable Bitmap convertFromivIPic(@NotNull final String base64Code) {
-        if (base64Code.isEmpty()) {
+        if (base64Code == null || base64Code.isEmpty()) {
             return null;
         }
-        byte[] decodedString = Base64.decode(base64Code, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        try {
+            byte[] decodedString = Base64.decode(base64Code, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

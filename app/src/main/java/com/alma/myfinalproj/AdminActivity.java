@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnAddItem, btnListUser, btnGoListItem;
+    Button btnAddItem, btnListUser, btnGoListItem, btnShowOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         btnListUser.setOnClickListener(this);
         btnGoListItem=findViewById(R.id.btnGoListItem);
         btnGoListItem.setOnClickListener(this);
+        btnShowOrders=findViewById(R.id.btnShowOrders);
+        btnShowOrders.setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +46,11 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         if(v.getId()==btnGoListItem.getId()){
 
             Intent go = new Intent(this, ItemsList.class);
+            startActivity(go);
+        }
+        if(v.getId()==btnShowOrders.getId()){
+
+            Intent go = new Intent(this, AllOrders.class);
             startActivity(go);
         }
     }

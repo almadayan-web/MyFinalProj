@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,10 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alma.myfinalproj.R;
 import com.alma.myfinalproj.model.Cart;
-import com.alma.myfinalproj.model.Item;
 import com.alma.myfinalproj.model.ItemCart;
-import com.alma.myfinalproj.utils.ImageUtil;
-
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Context context;
@@ -49,8 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView product_image;
-        TextView product_name, product_price, product_amount, product_size;
-        ImageButton ibPlus, ibMinus;
+        TextView product_name, product_price, product_amount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -58,25 +53,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             product_name = itemView.findViewById(R.id.product_name);
             product_price = itemView.findViewById(R.id.product_price);
             product_amount = itemView.findViewById(R.id.product_amount);
-
         }
 
-        public void bind(final ItemCart item_cart) {
-            Item product = item_cart.getItem();
-            int amount = item_cart.getAmount();
-
-            if (amount > 0) {
-
-
-                product_image.setImageBitmap(ImageUtil.convertFromivIPic(product.getPic()));
-                product_name.setText(product.getName());
-                product_price.setText(product.getPrice() + "₪");
-                product_amount.setText(String.valueOf(amount));
-                //   product_size.setText(product.getSize());
-
-
-            }
-
+        public void bind(ItemCart item_cart) {
+            // שינוי כאן - בלי getItem()
+            product_image.setImageResource(R.drawable.almalogopic);
+            product_name.setText(item_cart.getItemName());
+            product_price.setText(item_cart.getItemPrice() + "₪");
+            product_amount.setText(String.valueOf(item_cart.getAmount()));
         }
     }
 }

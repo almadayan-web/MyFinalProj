@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardBackgroundColor="#746F72"
+    app:cardBackgroundColor="#E2819F"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#0A0F0D"
+            android:background="@color/white"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
             android:gravity="center"
@@ -30,15 +30,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12345"
-                android:textColor="#9BD1E5"
+                android:fontFamily="serif"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvOrderIdO"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="הזמנה:   "
-                android:textColor="#9BD1E5"
+                android:text="הזמנה:  "
+                android:fontFamily="serif"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -49,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:cardBackgroundColor="#9BD1E5"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +67,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="פרטי רוכש"
-                    android:textColor="#0A0F0D"
+                    android:fontFamily="serif"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_gravity="end" />
@@ -87,15 +90,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="שם מלא: "
-                        android:textColor="#0A0F0D"
+                        android:fontFamily="serif"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvUserValueO"
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:text="ישראל ישראלי"
-                        android:textColor="#0A0F0D" />
+                        android:fontFamily="serif"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tvStatusOrder"
+                        android:layout_width="149dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="סטטוס: " />
                 </LinearLayout>
 
                 <LinearLayout
@@ -108,7 +120,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="טלפון: "
-                        android:textColor="#0A0F0D"
+                        android:fontFamily="serif"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <TextView
@@ -116,7 +129,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0501234567"
-                        android:textColor="#0A0F0D" />
+                        android:fontFamily="serif"
+                        android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -126,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:cardBackgroundColor="#E1CA96"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -142,7 +156,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="פרטי רכישה"
-                    android:textColor="#0A0F0D"
+                    android:fontFamily="serif"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_gravity="end" />
@@ -150,7 +165,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#0A0F0D"
+                    android:background="@color/black"
                     android:layout_marginVertical="4dp" />
 
                 <LinearLayout
@@ -176,7 +191,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="תאריך: "
-                                android:textColor="#0A0F0D"
+                                android:fontFamily="serif"
+                                android:textColor="@color/black"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -184,7 +200,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="13/05/2025"
-                                android:textColor="#0A0F0D" />
+                                android:fontFamily="serif"
+                                android:textColor="@color/black" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -197,7 +214,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="סכום כולל: "
-                                android:textColor="#0A0F0D"
+                                android:fontFamily="serif"
+                                android:textColor="@color/black"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -205,7 +223,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="₪149.90"
-                                android:textColor="#0A0F0D" />
+                                android:fontFamily="serif"
+                                android:textColor="@color/black" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -217,7 +236,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="אמצעי תשלום: "
-                                android:textColor="#0A0F0D"
+                                android:fontFamily="serif"
+                                android:textColor="@color/black"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -225,7 +245,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Bit"
-                                android:textColor="#0A0F0D" />
+                                android:fontFamily="serif"
+                                android:textColor="@color/black" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -249,7 +270,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="פירוט מוצרים"
-                            android:textColor="#0A0F0D"
+                            android:fontFamily="serif"
+                            android:textColor="@color/black"
                             android:textStyle="bold"
                             android:gravity="right" />
 

@@ -8,7 +8,7 @@ import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class about extends AppCompatActivity implements View.OnClickListener {
+public class About extends AppCompatActivity implements View.OnClickListener {
 
     Button btnGoBack;
 
