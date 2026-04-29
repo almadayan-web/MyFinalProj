@@ -1,18 +1,13 @@
 package com.alma.myfinalproj;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.widget.TextView;
-
 
 import com.alma.myfinalproj.adapters.UserAdapter;
 import com.alma.myfinalproj.model.User;
@@ -23,9 +18,9 @@ import java.util.List;
 public class UsersListActivity extends AppCompatActivity {
 
     private static final String TAG = "UsersListActivity";
+    DatabaseService databaseService;
     private UserAdapter userAdapter;
     private TextView tvUserCount;
-    DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +28,7 @@ public class UsersListActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_users_list);
 
-        databaseService=DatabaseService.getInstance();
+        databaseService = DatabaseService.getInstance();
         RecyclerView usersList = findViewById(R.id.rv_users_list);
         tvUserCount = findViewById(R.id.tv_user_count);
         usersList.setLayoutManager(new LinearLayoutManager(this));
@@ -42,9 +37,9 @@ public class UsersListActivity extends AppCompatActivity {
             public void onUserClick(User user) {
                 // Handle user click
                 Log.d(TAG, "User clicked: " + user);
-               // Intent intent = new Intent(UsersListActivity.this, UserProfileActivity.class);
-              //  intent.putExtra("USER_UID", user.getId());
-             //   startActivity(intent);
+                // Intent intent = new Intent(UsersListActivity.this, UserProfileActivity.class);
+                //  intent.putExtra("USER_UID", user.getId());
+                //   startActivity(intent);
             }
 
             @Override

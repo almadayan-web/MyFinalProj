@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="?attr/android:colorBackground"
     tools:context=".ItemsList">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -38,29 +39,29 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="Item Management"
-                android:textSize="24sp"
-                android:textStyle="bold"
                 android:textColor="?attr/colorOnBackground"
-                android:layout_marginBottom="8dp" />
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_item_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total items: 0"
-                android:textSize="14sp"
-                android:textColor="?attr/colorOnSurfaceVariant" />
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
+            android:layout_weight="1"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
@@ -72,39 +73,39 @@
                     android:id="@+id/rv_item_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
                     android:clipToPadding="false"
+                    android:padding="8dp"
                     tools:listitem="@layout/item_item" />
 
                 <LinearLayout
                     android:id="@+id/empty_state"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:src="@android:drawable/ic_menu_my_calendar"
+                        android:layout_marginBottom="16dp"
                         android:alpha="0.3"
-                        android:layout_marginBottom="16dp" />
+                        android:src="@android:drawable/ic_menu_my_calendar" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
                         android:text="No Items Found"
-                        android:textSize="18sp"
                         android:textColor="?attr/colorOnSurfaceVariant"
-                        android:layout_marginBottom="8dp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Items will appear here"
-                        android:textSize="14sp"
-                        android:textColor="?attr/colorOnSurfaceVariant" />
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 

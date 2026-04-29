@@ -27,13 +27,11 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
 
     TextView tvItemType, tvItemName, tvItemSize, tvItemPrice, tvItemDetails;
     ImageView ivItemPic;
-    private String itemId = "";
-
     DatabaseService databaseService;
     Cart userCart = null;
     String uid;
-
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private String itemId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +63,8 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
                 }
 
                 @Override
-                public void onFailed(Exception e) {}
+                public void onFailed(Exception e) {
+                }
             });
         }
     }
@@ -116,7 +115,8 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
                         }
 
                         @Override
-                        public void onFailed(Exception e) {}
+                        public void onFailed(Exception e) {
+                        }
                     });
                 }
 

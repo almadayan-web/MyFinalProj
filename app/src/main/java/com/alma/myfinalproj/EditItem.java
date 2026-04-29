@@ -26,21 +26,21 @@ import com.alma.myfinalproj.services.DatabaseService;
 import com.alma.myfinalproj.utils.ImageUtil;
 
 public class EditItem extends AppCompatActivity {
-    private EditText etIname, etIPrice, etISize, etIDetails;
-    private Spinner spIType;
-    private Button btnGallery, btnCamera, btnAddItem;
-    private ImageView ivIPic;
-    private DatabaseService databaseService;
-    private ActivityResultLauncher<Intent> captureImageLauncher;
     /// Activity result launcher for capturing image from camera
 
 
     // constant to compare
     // the activity result code
     int SELECT_PICTURE = 200;
+    private EditText etIname, etIPrice, etISize, etIDetails;
+    private Spinner spIType;
+    private Button btnGallery, btnCamera, btnAddItem;
+    private ImageView ivIPic;
+    private DatabaseService databaseService;
+    private ActivityResultLauncher<Intent> captureImageLauncher;
     private Intent takeit;
-    private String itemId="";
-    private Item currentItem=null;
+    private String itemId = "";
+    private Item currentItem = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,28 +57,27 @@ public class EditItem extends AppCompatActivity {
         InitViews();
 
 
-        takeit=getIntent();
-        itemId=  takeit.getStringExtra("itemId");
+        takeit = getIntent();
+        itemId = takeit.getStringExtra("itemId");
 
-        databaseService=DatabaseService.getInstance();
+        databaseService = DatabaseService.getInstance();
 
 
-
-        if(!itemId.isEmpty()){
+        if (!itemId.isEmpty()) {
             databaseService.getItem(itemId, new DatabaseService.DatabaseCallback<Item>() {
                 @Override
                 public void onCompleted(Item item) {
 
-                    currentItem=item;
+                    currentItem = item;
 
 
-                    if(currentItem!=null) {
+                    if (currentItem != null) {
                         etIname.setText(currentItem.getName());
-                       // et.setText(currentItem.getType());
+                        // et.setText(currentItem.getType());
                         etISize.setText(currentItem.getSize());
-                        etIPrice.setText(currentItem.getPrice()+"");
+                        etIPrice.setText(currentItem.getPrice() + "");
                         etIDetails.setText(currentItem.getDetails());
-                        ivIPic.setImageBitmap(ImageUtil.convertFromivIPic( currentItem.getPic()));
+                        ivIPic.setImageBitmap(ImageUtil.convertFromivIPic(currentItem.getPic()));
                     }
                 }
 
@@ -89,8 +88,6 @@ public class EditItem extends AppCompatActivity {
             });
 
         }
-
-
 
 
         /// request permission for the camera and storage
@@ -238,4 +235,4 @@ public class EditItem extends AppCompatActivity {
             }
         }
     }
-    }
+}

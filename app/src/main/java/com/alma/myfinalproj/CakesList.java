@@ -20,7 +20,7 @@ public class CakesList extends AppCompatActivity {
 
     RecyclerView rvItemList;
     ItemAdapter itemAdapter;
-    List<Item>itemsList=new ArrayList<>();
+    List<Item> itemsList = new ArrayList<>();
 
 
     @Override
@@ -32,13 +32,13 @@ public class CakesList extends AppCompatActivity {
         rvItemList = findViewById(R.id.rv_item_list);
         rvItemList.setLayoutManager(new GridLayoutManager(this, 2));
 
-        itemAdapter = new ItemAdapter(itemsList,new ItemAdapter.OnItemClickListener() {
+        itemAdapter = new ItemAdapter(itemsList, new ItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Item item) {
                 // Handle user click
                 Log.d("TAG", "item clicked: " + item);
-                 Intent intent = new Intent(CakesList.this, ItemProfile.class);
-                 intent.putExtra("itemId", item.getId());
+                Intent intent = new Intent(CakesList.this, ItemProfile.class);
+                intent.putExtra("itemId", item.getId());
                 startActivity(intent);
             }
 
@@ -59,7 +59,7 @@ public class CakesList extends AppCompatActivity {
             @Override
             public void onCompleted(List<Item> items) {
 
-                if(items!=null) {
+                if (items != null) {
 
                     for (int i = 0; i < items.size(); i++) {
 

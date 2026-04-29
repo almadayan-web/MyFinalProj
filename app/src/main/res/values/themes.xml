@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+
     <style name="Base.Theme.MyFinalProj" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#E2819F</item>
         <item name="android:statusBarColor">#E2819F</item>

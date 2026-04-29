@@ -43,51 +43,47 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
+            <TextView
+                android:id="@+id/itemCart_priceItemOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="₪25.90"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:cardBackgroundColor="@color/white" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp">
 
                 <TextView
-                    android:id="@+id/itemCart_priceItemOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="serif"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="4dp"
-                    android:text="₪25.90"
+                    android:text="2 "
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:cardBackgroundColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textSize="12sp" />
 
-
-
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/itemCart_AmountItemOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="4dp">
+                    android:fontFamily="serif"
+                    android:text="כמות:"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="serif"
-                        android:text="2 "
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/itemCart_AmountItemOrder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="serif"
-                        android:text="כמות:"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
+            </LinearLayout>
 
 
         </LinearLayout>

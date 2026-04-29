@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import androidx.core.view.GravityCompat;
+
 import androidx.activity.EdgeToEdge;
+import androidx.core.view.GravityCompat;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -20,13 +21,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         ImageButton btnMenu = findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
-        btnCakes=findViewById(R.id.btnCakes);
+        btnCakes = findViewById(R.id.btnCakes);
         btnCakes.setOnClickListener(this);
-        btnElse=findViewById(R.id.btnElse);
+        btnElse = findViewById(R.id.btnElse);
         btnElse.setOnClickListener(this);
-        btnUserProfile=findViewById(R.id.btnUserProfile);
+        btnUserProfile = findViewById(R.id.btnUserProfile);
         btnUserProfile.setOnClickListener(this);
-        btnOrder=findViewById(R.id.btnOrder);
+        btnOrder = findViewById(R.id.btnOrder);
         btnOrder.setOnClickListener(this);
     }
 
@@ -34,9 +35,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
 
         if (v.getId() == btnCakes.getId()) {
-                Intent go = new Intent(this, CakesList.class);
-                startActivity(go);
-            }
+            Intent go = new Intent(this, CakesList.class);
+            startActivity(go);
+        }
         if (v.getId() == btnElse.getId()) {
             Intent go = new Intent(this, ElseList.class);
             startActivity(go);
@@ -45,8 +46,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Intent go = new Intent(this, UserProfile.class);
             startActivity(go);
         }
-        if (v.getId()==btnOrder.getId()){
-            Intent go = new Intent(this,CartActivity.class);
+        if (v.getId() == btnOrder.getId()) {
+            Intent go = new Intent(this, CartActivity.class);
             startActivity(go);
         }
     }

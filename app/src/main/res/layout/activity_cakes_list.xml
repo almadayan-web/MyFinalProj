@@ -50,10 +50,10 @@
         android:id="@+id/btnGoBack"
         android:layout_width="107dp"
         android:layout_height="87dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
         android:text="חזור"
         android:textSize="25dp"
-        android:fontFamily="serif"
-        android:backgroundTint="#E2819F"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

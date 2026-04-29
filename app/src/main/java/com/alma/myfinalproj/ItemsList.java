@@ -7,17 +7,11 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alma.myfinalproj.adapters.ItemAdapter;
-import com.alma.myfinalproj.adapters.UserAdapter;
 import com.alma.myfinalproj.model.Item;
-import com.alma.myfinalproj.model.User;
 import com.alma.myfinalproj.services.DatabaseService;
 
 import java.util.ArrayList;
@@ -26,10 +20,10 @@ import java.util.List;
 public class ItemsList extends AppCompatActivity {
 
     private static final String TAG = "UsersListActivity";
+    DatabaseService databaseService;
     private ItemAdapter itemAdapter;
     private TextView tvItemCount;
-    DatabaseService databaseService;
-    private List<Item> itemsList=new ArrayList<>();
+    private List<Item> itemsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,55 +36,49 @@ public class ItemsList extends AppCompatActivity {
         tvItemCount = findViewById(R.id.tv_item_count);
 
 
-
-
-
-
-
         rvAllItems.setLayoutManager(new GridLayoutManager(this, 2));
 
-                itemAdapter = new ItemAdapter(itemsList,new ItemAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(Item item) {
-                        // Handle user click
-                        Log.d("TAG", "item clicked: " + item);
-                        Intent intent = new Intent(ItemsList.this, EditItem.class);
-                        intent.putExtra("itemId", item.getId());
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onLongItemClick(Item item) {
-
-                    }
-                });
-
-                rvAllItems.setAdapter(itemAdapter);
+        itemAdapter = new ItemAdapter(itemsList, new ItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Item item) {
+                // Handle user click
+                Log.d("TAG", "item clicked: " + item);
+                Intent intent = new Intent(ItemsList.this, EditItem.class);
+                intent.putExtra("itemId", item.getId());
+                startActivity(intent);
             }
 
             @Override
-            protected void onResume() {
-                super.onResume();
+            public void onLongItemClick(Item item) {
 
-                DatabaseService.getInstance().getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
-                    @Override
-                    public void onCompleted(List<Item> items) {
+            }
+        });
 
-                       itemsList.addAll(items);
+        rvAllItems.setAdapter(itemAdapter);
+    }
 
-                       itemAdapter.notifyDataSetChanged();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-                       tvItemCount.setText(itemsList.size()+"");
-                        }
+        DatabaseService.getInstance().getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
+            @Override
+            public void onCompleted(List<Item> items) {
 
+                itemsList.addAll(items);
 
-                    @Override
-                    public void onFailed(Exception e) {
+                itemAdapter.notifyDataSetChanged();
 
-                    }
-                });
+                tvItemCount.setText(itemsList.size() + "");
             }
 
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+    }
 
 
 }

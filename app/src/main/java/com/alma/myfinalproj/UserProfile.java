@@ -8,26 +8,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alma.myfinalproj.model.User;
 import com.alma.myfinalproj.services.DatabaseService;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserProfile extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnGoBack;
-
     private static final String TAG = "UserProfileActivity";
-
-    private EditText etUserFname, etUserLname, etUserPhone;
-    private TextView tvUserEmail, tvUserPassword;
-    private Button btnSubmit;
+    Button btnGoBack;
     String selectedUid;
     User selectedUser;
     boolean isCurrentUser = false;
+    private EditText etUserFname, etUserLname, etUserPhone;
+    private TextView tvUserEmail, tvUserPassword;
+    private Button btnSubmit;
     private DatabaseService databaseService;
 
 
@@ -68,7 +66,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             Intent go = new Intent(this, MainActivity.class);
             startActivity(go);
         }
-        if (v==btnGoBack) {
+        if (v == btnGoBack) {
             Intent go = new Intent(this, MainActivity.class);
             startActivity(go);
         }
@@ -76,7 +74,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
     private void showUserProfile() {
         // Get the user data from database
-        databaseService.getUser( new DatabaseService.DatabaseCallback<User>() {
+        databaseService.getUser(new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {
                 selectedUser = user;

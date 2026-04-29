@@ -7,15 +7,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class Order implements Serializable {
+    protected String destinationDate;
     private String orderId;
     private List<ItemCart> items;
     private double totalPrice;
     private String status;
-
     private User user;
-
     private long timestamp;
-    protected String destinationDate;
 
     public Order(String orderId, List<ItemCart> items, double totalPrice, String status, User user, long timestamp, String destinationDate) {
         this.orderId = orderId;
@@ -26,9 +24,6 @@ public class Order implements Serializable {
         this.timestamp = timestamp;
         this.destinationDate = destinationDate;
     }
-
-
-
 
 
     public Order() {
@@ -46,12 +41,24 @@ public class Order implements Serializable {
         return orderId;
     }
 
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
     public List<ItemCart> getItems() {
         return items;
     }
 
+    public void setItems(List<ItemCart> items) {
+        this.items = items;
+    }
+
     public double getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getStatus() {
@@ -60,19 +67,6 @@ public class Order implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public void setItems(List<ItemCart> items) {
-        this.items = items;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public User getUser() {

@@ -11,15 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,7 +24,9 @@ import com.alma.myfinalproj.model.User;
 import com.alma.myfinalproj.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CartActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,21 +37,14 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     Cart cart = null;
     Button btnBePayment, btnEditAmount, btnDelete;
     TextView tvprice;
-
-
-
-    private CartAdapter cartAdapter;
-
     DatabaseService databaseService;
-
     String uid;
     User user = null;
-
     FirebaseAuth mAuth;
-
     EditText etDestDate;
-
     String destenationDate;
+    private CartAdapter cartAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +64,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         rcCart = findViewById(R.id.rvCart);
         tvprice = findViewById(R.id.tvTotal);
 
-        etDestDate=findViewById(R.id.etDestDate);
+        etDestDate = findViewById(R.id.etDestDate);
         etDestDate.setOnClickListener(v -> {
 
             Calendar calendar = Calendar.getInstance();
@@ -103,12 +91,11 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         uid = mAuth.getCurrentUser().getUid();
 
 
-
         databaseService = DatabaseService.getInstance();
         databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User object) {
-                user=new User(object);
+                user = new User(object);
             }
 
             @Override
@@ -218,12 +205,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
         if (view == btnBePayment) {
 
-            destenationDate=etDestDate.getText().toString();
+            destenationDate = etDestDate.getText().toString();
             // בדיקות תקינות
             processOrder();
-        }
-
-        else if (view == btnGoBackCart) {
+        } else if (view == btnGoBackCart) {
 
             Intent go = new Intent(CartActivity.this, MainActivity.class);
             startActivity(go);

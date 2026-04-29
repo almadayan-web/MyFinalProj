@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.alma.myfinalproj.R;
 import com.alma.myfinalproj.model.User;
 import com.google.android.material.chip.Chip;
@@ -19,11 +18,6 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-
-    public interface OnUserClickListener {
-        void onUserClick(User user);
-        void onLongUserClick(User user);
-    }
 
     private final List<User> userList;
     private final OnUserClickListener onUserClickListener;
@@ -47,7 +41,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.tvName.setText(user.getFname());
         holder.tvEmail.setText(user.getEmail());
         holder.tvPhone.setText(user.getPhone());
-        
+
         // Set initials
         String initials = "";
         if (user.getFname() != null && !user.getFname().isEmpty()) {
@@ -57,7 +51,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             initials += user.getLname().charAt(0);
         }
         holder.tvInitials.setText(initials.toUpperCase());
-        
+
         // Show admin chip if user is admin
 
         holder.itemView.setOnClickListener(v -> {
@@ -90,6 +84,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         userList.add(user);
         notifyItemInserted(userList.size() - 1);
     }
+
     public void updateUser(User user) {
         int index = userList.indexOf(user);
         if (index == -1) return;
@@ -102,6 +97,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         if (index == -1) return;
         userList.remove(index);
         notifyItemRemoved(index);
+    }
+
+    public interface OnUserClickListener {
+        void onUserClick(User user);
+
+        void onLongUserClick(User user);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

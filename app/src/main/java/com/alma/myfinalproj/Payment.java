@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,27 +14,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-
-public class Payment extends AppCompatActivity
-{
+public class Payment extends AppCompatActivity {
     EditText identityCardEditText, nameEditText, cardNumberEditText, cvvEditText;
     TextView priceTextView;
     Spinner monthSpinner, yearSpinner;
     Button payButton;
     ImageButton bit, payBox, payPal;
-    ArrayAdapter<CharSequence>monthAdapter, yearAdapter;
-    double total=0.0;
+    ArrayAdapter<CharSequence> monthAdapter, yearAdapter;
+    double total = 0.0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_payment);
@@ -45,7 +40,7 @@ public class Payment extends AppCompatActivity
             return insets;
         });
 
-        total=getIntent().getDoubleExtra("total",0.0);
+        total = getIntent().getDoubleExtra("total", 0.0);
 
         identityCardEditText = findViewById(R.id.editTextIdentityCard);
         nameEditText = findViewById(R.id.editTextName);
@@ -59,8 +54,8 @@ public class Payment extends AppCompatActivity
         payPal = findViewById(R.id.ibPayPal);
         payBox = findViewById(R.id.ibPayBox);
 
-        if(total>0)
-            priceTextView.setText(total+"");
+        if (total > 0)
+            priceTextView.setText(total + "");
         monthAdapter = ArrayAdapter.createFromResource(this, R.array.months_array, android.R.layout.simple_spinner_item);
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(monthAdapter);
@@ -71,11 +66,9 @@ public class Payment extends AppCompatActivity
         yearSpinner.setAdapter(yearAdapter);
         yearSpinner.setSelection(0);
 
-        payButton.setOnClickListener(new View.OnClickListener()
-        {
+        payButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 String identityCard = identityCardEditText.getText().toString();
                 String fullName = nameEditText.getText().toString();
                 String cardNumber = cardNumberEditText.getText().toString();
@@ -84,8 +77,7 @@ public class Payment extends AppCompatActivity
                 String year = yearSpinner.getSelectedItem().toString();
 
                 // בדיקה שכל השדות מלאים
-                if (identityCard.isEmpty() || fullName.isEmpty() || cardNumber.isEmpty() || cvv.isEmpty() || month.isEmpty() || year.isEmpty())
-                {
+                if (identityCard.isEmpty() || fullName.isEmpty() || cardNumber.isEmpty() || cvv.isEmpty() || month.isEmpty() || year.isEmpty()) {
                     Toast.makeText(Payment.this, "אנא מלא את כל השדות", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -117,7 +109,7 @@ public class Payment extends AppCompatActivity
                 // אם כל הבדיקות עברו בהצלחה
                 Toast.makeText(Payment.this, "התשלום בוצע בהצלחה!", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(Payment.this,MainActivity.class);
+                Intent intent = new Intent(Payment.this, MainActivity.class);
 
                 startActivity(intent);
             }
@@ -129,16 +121,12 @@ public class Payment extends AppCompatActivity
     }
 
 
-
     private void openApp(String packageName) {
         PackageManager packageManager = getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(packageName);
-        if (intent != null)
-        {
+        if (intent != null) {
             startActivity(intent);
-        }
-        else
-        {
+        } else {
             Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
             startActivity(webIntent);
         }

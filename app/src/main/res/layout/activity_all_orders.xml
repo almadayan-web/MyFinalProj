@@ -7,21 +7,32 @@
     android:layout_height="match_parent"
     tools:context=".AllOrders">
 
+    <!-- פס ורוד עליון -->
     <LinearLayout
         android:id="@+id/llC1"
         android:layout_width="match_parent"
         android:layout_height="86dp"
         android:background="#E2819F"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- כפתור מיון בתוך הפס -->
+        <Button
+            android:id="@+id/btnShowOptionsOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#C45F80"
+            android:fontFamily="serif"
+            android:text="מיון"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
+    <!-- לוגו -->
     <ImageView
         android:id="@+id/ivLogoPic"
         android:layout_width="104dp"
@@ -33,16 +44,21 @@
         app:layout_constraintTop_toBottomOf="@+id/llC1"
         app:srcCompat="@drawable/almalogopic" />
 
+    <!-- כפתור חזור -->
     <Button
         android:id="@+id/btnGoBack"
         android:layout_width="107dp"
         android:layout_height="87dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
         android:text="חזור"
         android:textSize="25dp"
-        android:fontFamily="serif"
-        android:backgroundTint="#E2819F"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- כותרת -->
+
+    <!-- תפריט אפשרויות מיון -->
 
     <TextView
         android:id="@+id/textView3"
@@ -54,18 +70,71 @@
         android:textColor="#E2819F"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rvAllOrders"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/llC1"
-        app:layout_constraintVertical_bias="0.821" />
+        tools:layout_editor_absoluteY="122dp" />
 
+    <LinearLayout
+        android:id="@+id/optionsContainerOrder"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llC1">
+
+        <TextView
+            android:id="@+id/option1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:gravity="end"
+            android:padding="12dp"
+            android:text="ללא מיון"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:gravity="end"
+            android:padding="12dp"
+            android:text="תאריך - חדש לישן"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/option3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:gravity="end"
+            android:padding="12dp"
+            android:text="תאריך - ישן לחדש"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/option4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:gravity="end"
+            android:padding="12dp"
+            android:text="מאושרות בלבד"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- רשימת הזמנות -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAllOrders"
-        android:layout_width="413dp"
-        android:layout_height="639dp"
+        android:layout_width="410dp"
+        android:layout_height="613dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optionsContainerOrder" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

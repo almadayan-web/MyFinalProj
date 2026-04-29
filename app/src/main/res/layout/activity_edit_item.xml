@@ -19,8 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.001">
-    </LinearLayout>
+        app:layout_constraintVertical_bias="0.001"></LinearLayout>
 
     <ImageView
         android:id="@+id/ivLogoPicEdit"
@@ -52,9 +51,9 @@
 
     <Spinner
         android:id="@+id/spITypeEdit"
-        android:entries="@array/ItemType"
         android:layout_width="260dp"
         android:layout_height="72dp"
+        android:entries="@array/ItemType"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.046"

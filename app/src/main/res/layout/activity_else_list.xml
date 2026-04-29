@@ -7,54 +7,54 @@
     android:layout_height="match_parent"
     tools:context=".ElseList">
 
-        <LinearLayout
-            android:id="@+id/llC1"
-            android:layout_width="match_parent"
-            android:layout_height="86dp"
-            android:background="#E2819F"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.001">
+    <LinearLayout
+        android:id="@+id/llC1"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:background="#E2819F"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001">
 
-        </LinearLayout>
+    </LinearLayout>
 
-        <ImageView
-            android:id="@+id/ivLogoPic"
-            android:layout_width="104dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="-40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/llC1"
-            app:srcCompat="@drawable/almalogopic" />
+    <ImageView
+        android:id="@+id/ivLogoPic"
+        android:layout_width="104dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="-40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llC1"
+        app:srcCompat="@drawable/almalogopic" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_item_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivLogoPic"
-            app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/one_item" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_item_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogoPic"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/one_item" />
 
-        <Button
-            android:id="@+id/btnGoBack"
-            android:layout_width="107dp"
-            android:layout_height="87dp"
-            android:text="חזור"
-            android:textSize="25dp"
-            android:fontFamily="serif"
-            android:backgroundTint="#E2819F"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/btnGoBack"
+        android:layout_width="107dp"
+        android:layout_height="87dp"
+        android:backgroundTint="#E2819F"
+        android:fontFamily="serif"
+        android:text="חזור"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

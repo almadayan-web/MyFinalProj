@@ -16,18 +16,14 @@ import com.alma.myfinalproj.services.DatabaseService;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String MyPREFERENCES = "MyPrefs";
+    private static final String TAG = "LoginActivity";
+    public static boolean isAdmin = false;
     Button btnSubmit, btnGoBack;
     EditText etEmail, etPassword;
-
-
-    private static final String TAG = "LoginActivity";
-    private DatabaseService databaseService;
-
-
-    public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
+    private DatabaseService databaseService;
     private String email, password;
-    public  static boolean isAdmin=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +34,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        databaseService=DatabaseService.getInstance();
-        btnSubmit=findViewById(R.id.btnSubmit);
+        databaseService = DatabaseService.getInstance();
+        btnSubmit = findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(this);
-        btnGoBack=findViewById(R.id.btnGoBack);
+        btnGoBack = findViewById(R.id.btnGoBack);
         btnGoBack.setOnClickListener(this);
-        etEmail=findViewById(R.id.etEmail);
-        etPassword=findViewById(R.id.etPassword);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
 
-        email=sharedpreferences.getString("email","");
-        password=sharedpreferences.getString("password","");
+        email = sharedpreferences.getString("email", "");
+        password = sharedpreferences.getString("password", "");
         etEmail.setText(email);
         etPassword.setText(password);
     }
@@ -88,7 +84,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             /// Callback method called when the operation is completed
             /// @param// Email  & password is logged in
             @Override
-            public void onCompleted(String  uid) {
+            public void onCompleted(String uid) {
                 Log.d(TAG, "onCompleted: User logged in: " + uid.toString());
                 /// save the user data to shared preferences
                 // SharedPreferencesUtil.saveUser(LoginActivity.this, user);
@@ -103,9 +99,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                 editor.commit();
 
-                if(email.contains("almaDayan@gmail.com" )&& password.contains("123456")){
+                if (email.contains("almaDayan@gmail.com") && password.contains("123456")) {
 
-                    isAdmin=true;
+                    isAdmin = true;
 
                     Intent mainIntent = new Intent(Login.this, AdminActivity.class);
                     /// Clear the back stack (clear history) and start the MainActivity
@@ -113,8 +109,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     startActivity(mainIntent);
                     finish();
 
-                }
-else {
+                } else {
 
                     Intent mainIntent = new Intent(Login.this, MainActivity.class);
                     /// Clear the back stack (clear history) and start the MainActivity

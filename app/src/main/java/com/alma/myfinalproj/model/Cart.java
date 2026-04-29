@@ -20,6 +20,10 @@ public class Cart {
         return items;
     }
 
+    public void setItems(ArrayList<ItemCart> items) {
+        this.items = items;
+    }
+
     public void addItemToCart(ItemCart itemCart) {
         if (itemCart == null) return;
         if (this.items == null) this.items = new ArrayList<>();
@@ -39,10 +43,6 @@ public class Cart {
         this.items.remove(itemCart);
     }
 
-    public void setItems(ArrayList<ItemCart> items) {
-        this.items = items;
-    }
-
     public double getTotal() {
         double sum = 0;
         if (this.items == null) return 0;
@@ -52,12 +52,12 @@ public class Cart {
         return sum;
     }
 
-    public double getTotalPrice() {
-        return getTotal();
-    }
-
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public double getTotalPrice() {
+        return getTotal();
     }
 
     @Override

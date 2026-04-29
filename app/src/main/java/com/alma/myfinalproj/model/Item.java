@@ -2,7 +2,7 @@ package com.alma.myfinalproj.model;
 
 import java.io.Serializable;
 
-public class Item  implements Serializable {
+public class Item implements Serializable {
     protected String id;
     protected String name;
     protected String type;
@@ -82,7 +82,6 @@ public class Item  implements Serializable {
     public void setPic(String pic) {
         this.pic = pic;
     }
-
 
 
     @Override

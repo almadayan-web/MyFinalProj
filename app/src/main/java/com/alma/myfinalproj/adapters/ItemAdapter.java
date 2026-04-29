@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alma.myfinalproj.ItemProfile;
 import com.alma.myfinalproj.R;
 import com.alma.myfinalproj.model.Item;
 import com.alma.myfinalproj.utils.ImageUtil;
@@ -20,26 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-    public interface OnItemClickListener {
-        void onItemClick(Item item);
-
-        void onLongItemClick(Item item);
-    }
-
     private final List<Item> itemList;
     private final OnItemClickListener onClickListener;
-
     public ItemAdapter(@Nullable final OnItemClickListener onClickListener) {
         itemList = new ArrayList<>();
         this.onClickListener = onClickListener;
     }
 
-
     public ItemAdapter(@Nullable final List<Item> itemList, @Nullable final OnItemClickListener onClickListener) {
         this.itemList = itemList;
         this.onClickListener = onClickListener;
     }
-
 
     @NonNull
     @Override
@@ -103,6 +93,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         if (index == -1) return;
         itemList.remove(index);
         notifyItemRemoved(index);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Item item);
+
+        void onLongItemClick(Item item);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

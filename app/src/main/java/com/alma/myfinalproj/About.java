@@ -18,13 +18,13 @@ public class About extends AppCompatActivity implements View.OnClickListener {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_about);
 
-        btnGoBack=findViewById(R.id.btnGoBack);
+        btnGoBack = findViewById(R.id.btnGoBack);
         btnGoBack.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId()==btnGoBack.getId()){
+        if (view.getId() == btnGoBack.getId()) {
             Intent go = new Intent(this, Landing.class);
             startActivity(go);
         }

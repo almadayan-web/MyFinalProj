@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -18,9 +17,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.alma.myfinalproj.model.Item;
 import com.alma.myfinalproj.services.DatabaseService;
@@ -28,19 +24,18 @@ import com.alma.myfinalproj.utils.ImageUtil;
 
 public class AddItem extends AppCompatActivity {
 
-    private EditText etIname, etIPrice, etISize, etIDetails;
-    private Spinner spIType;
-    private Button btnGallery, btnCamera, btnAddItem;
-    private ImageView ivIPic;
-    private DatabaseService databaseService;
-    private ActivityResultLauncher<Intent> captureImageLauncher;
     /// Activity result launcher for capturing image from camera
 
 
     // constant to compare
     // the activity result code
     int SELECT_PICTURE = 200;
-
+    private EditText etIname, etIPrice, etISize, etIDetails;
+    private Spinner spIType;
+    private Button btnGallery, btnCamera, btnAddItem;
+    private ImageView ivIPic;
+    private DatabaseService databaseService;
+    private ActivityResultLauncher<Intent> captureImageLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +117,7 @@ public class AddItem extends AppCompatActivity {
                         Log.d("TAG", "Clearing input fields");
 
                         Intent intent = new Intent(AddItem.this, AdminActivity.class);
-                    //    startActivity(intent);
+                        //    startActivity(intent);
 
 
                     }
