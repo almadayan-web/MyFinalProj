@@ -6,9 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,19 +19,17 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import com.alma.myfinalproj.model.Item;
 import com.alma.myfinalproj.services.DatabaseService;
 import com.alma.myfinalproj.utils.ImageUtil;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class AddItem extends AppCompatActivity {
+public class AddItem extends BaseAdminActivity {
 
-    /// Activity result launcher for capturing image from camera
-
-
-    // constant to compare
-    // the activity result code
     int SELECT_PICTURE = 200;
     private EditText etIname, etIPrice, etISize, etIDetails;
     private Spinner spIType;
@@ -43,16 +44,15 @@ public class AddItem extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_item);
 
+        // ← הוספת כפתור התפריט
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+        if (btnMenu != null) {
+            btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
         InitViews();
-
-        /// request permission for the camera and storage
         ImageUtil.requestPermission(this);
-
-        /// get the instance of the database service
         databaseService = DatabaseService.getInstance();
 
-
-        /// register the activity result launcher for capturing image from camera
         captureImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -62,73 +62,41 @@ public class AddItem extends AppCompatActivity {
                     }
                 });
 
+        btnGallery.setOnClickListener(v -> selectImageFromGallery());
 
-        btnGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImageFromGallery();
+        btnCamera.setOnClickListener(v -> captureImageFromCamera());
 
+        btnAddItem.setOnClickListener(v -> {
+            String itemName = etIname.getText().toString();
+            String itemDetails = etIDetails.getText().toString();
+            String itemPrice = etIPrice.getText().toString();
+            String itemType = spIType.getSelectedItem().toString();
+            String itemSize = etISize.getText().toString();
+            String imagePic = ImageUtil.convertTo64Base(ivIPic);
 
+            if (itemName.isEmpty() || itemDetails.isEmpty() ||
+                    itemPrice.isEmpty() || itemType.isEmpty() || itemSize.isEmpty()) {
+                Toast.makeText(AddItem.this, "אנא מלא את כל השדות", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
 
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                captureImageFromCamera();
+            double price = Double.parseDouble(itemPrice);
+            String id = databaseService.generateItemId();
+            Item newItem = new Item(id, itemName, itemType, itemSize, price, itemDetails, imagePic);
 
-            }
-        });
-
-        btnAddItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String itemName = etIname.getText().toString();
-                String itemDetails = etIDetails.getText().toString();
-                String itemPrice = etIPrice.getText().toString();
-                String itemType = spIType.getSelectedItem().toString();
-                String itemSize = etISize.getText().toString();
-
-
-                String imagePic = ImageUtil.convertTo64Base(ivIPic);
-
-
-                if (itemName.isEmpty() || itemDetails.isEmpty() ||
-                        itemPrice.isEmpty() || itemType.isEmpty() || itemSize.isEmpty()) {
-                    Toast.makeText(AddItem.this, "אנא מלא את כל השדות", Toast.LENGTH_SHORT).show();
-                } else {
+            databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void object) {
                     Toast.makeText(AddItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AddItem.this, AdminActivity.class);
+                    startActivity(intent);
                 }
-                double price = Double.parseDouble(itemPrice);
-                /// generate a new id for the item
-                String id = databaseService.generateItemId();
 
-
-                Item newItem = new Item(id, itemName, itemType, itemSize, price, itemDetails, imagePic);
-
-
-                /// save the item to the database and get the result in the callback
-                databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<Void>() {
-                    @Override
-                    public void onCompleted(Void object) {
-                        Log.d("TAG", "Item added successfully");
-                        Toast.makeText(AddItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
-                        /// clear the input fields after adding the item for the next item
-                        Log.d("TAG", "Clearing input fields");
-
-                        Intent intent = new Intent(AddItem.this, AdminActivity.class);
-                        //    startActivity(intent);
-
-
-                    }
-
-                    @Override
-                    public void onFailed(Exception e) {
-                        Log.e("TAG", "Failed to add item", e);
-                        Toast.makeText(AddItem.this, "Failed to add food", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(AddItem.this, "שגיאה בהוספת המוצר", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 
@@ -144,50 +112,61 @@ public class AddItem extends AppCompatActivity {
         ivIPic = findViewById(R.id.ivIPic);
     }
 
-
-    /// select image from gallery
     private void selectImageFromGallery() {
-
         imageChooser();
     }
 
-    /// capture image from camera
     private void captureImageFromCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         captureImageLauncher.launch(takePictureIntent);
     }
 
-
     void imageChooser() {
-
-        // create an instance of the
-        // intent of the type image
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
-    // this function is triggered when user
-    // selects the image from the imageChooser
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
-                Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    ivIPic.setImageURI(selectedImageUri);
-                }
+        if (resultCode == RESULT_OK && requestCode == SELECT_PICTURE) {
+            Uri selectedImageUri = data.getData();
+            if (selectedImageUri != null) {
+                ivIPic.setImageURI(selectedImageUri);
             }
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.admin_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_homeadmin) {
+            startActivity(new Intent(this, AdminActivity.class));
+        }
+        else if (id == R.id.nav_signOutadmin) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, Landing.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        } else if (id == R.id.nav_additem) {
+            startActivity(new Intent(this, AddItem.class));
+        } else if (id == R.id.nav_listuser) {
+            startActivity(new Intent(this, UsersListActivity.class));
+        } else if (id == R.id.nav_listitem) {
+            startActivity(new Intent(this, ItemsList.class));
+        } else if (id == R.id.nav_showorders) {
+            startActivity(new Intent(this, AllOrders.class));
+        }
+
+        return true;
     }
 }

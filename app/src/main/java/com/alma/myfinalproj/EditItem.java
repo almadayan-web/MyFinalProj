@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -16,8 +17,8 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -25,12 +26,8 @@ import com.alma.myfinalproj.model.Item;
 import com.alma.myfinalproj.services.DatabaseService;
 import com.alma.myfinalproj.utils.ImageUtil;
 
-public class EditItem extends AppCompatActivity {
-    /// Activity result launcher for capturing image from camera
+public class EditItem extends BaseActivity {  // ← שינוי
 
-
-    // constant to compare
-    // the activity result code
     int SELECT_PICTURE = 200;
     private EditText etIname, etIPrice, etISize, etIDetails;
     private Spinner spIType;
@@ -53,27 +50,26 @@ public class EditItem extends AppCompatActivity {
             return insets;
         });
 
+        // ← הוספת כפתור התפריט
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+        if (btnMenu != null) {
+            btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
 
         InitViews();
-
 
         takeit = getIntent();
         itemId = takeit.getStringExtra("itemId");
 
         databaseService = DatabaseService.getInstance();
 
-
         if (!itemId.isEmpty()) {
             databaseService.getItem(itemId, new DatabaseService.DatabaseCallback<Item>() {
                 @Override
                 public void onCompleted(Item item) {
-
                     currentItem = item;
-
-
                     if (currentItem != null) {
                         etIname.setText(currentItem.getName());
-                        // et.setText(currentItem.getType());
                         etISize.setText(currentItem.getSize());
                         etIPrice.setText(currentItem.getPrice() + "");
                         etIDetails.setText(currentItem.getDetails());
@@ -82,22 +78,12 @@ public class EditItem extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailed(Exception e) {
-
-                }
+                public void onFailed(Exception e) {}
             });
-
         }
 
-
-        /// request permission for the camera and storage
         ImageUtil.requestPermission(this);
 
-        /// get the instance of the database service
-        databaseService = DatabaseService.getInstance();
-
-
-        /// register the activity result launcher for capturing image from camera
         captureImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -107,23 +93,9 @@ public class EditItem extends AppCompatActivity {
                     }
                 });
 
+        btnGallery.setOnClickListener(v -> selectImageFromGallery());
 
-        btnGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImageFromGallery();
-
-
-            }
-        });
-
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                captureImageFromCamera();
-
-            }
-        });
+        btnCamera.setOnClickListener(v -> captureImageFromCamera());
 
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,10 +105,7 @@ public class EditItem extends AppCompatActivity {
                 String itemPrice = etIPrice.getText().toString();
                 String itemType = spIType.getSelectedItem().toString();
                 String itemSize = etISize.getText().toString();
-
-
                 String imagePic = ImageUtil.convertTo64Base(ivIPic);
-
 
                 if (itemName.isEmpty() || itemDetails.isEmpty() ||
                         itemPrice.isEmpty() || itemType.isEmpty() || itemSize.isEmpty()) {
@@ -144,27 +113,18 @@ public class EditItem extends AppCompatActivity {
                 } else {
                     Toast.makeText(EditItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
                 }
+
                 double price = Double.parseDouble(itemPrice);
-                /// generate a new id for the item
                 String id = databaseService.generateItemId();
-
-
                 Item newItem = new Item(id, itemName, itemType, itemSize, price, itemDetails, imagePic);
 
-
-                /// save the item to the database and get the result in the callback
                 databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void object) {
                         Log.d("TAG", "Item added successfully");
                         Toast.makeText(EditItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
-                        /// clear the input fields after adding the item for the next item
-                        Log.d("TAG", "Clearing input fields");
-
                         Intent intent = new Intent(EditItem.this, AdminActivity.class);
-                        //    startActivity(intent);
-
-
+                        startActivity(intent);
                     }
 
                     @Override
@@ -189,47 +149,28 @@ public class EditItem extends AppCompatActivity {
         ivIPic = findViewById(R.id.ivIPicEdit);
     }
 
-
-    /// select image from gallery
     private void selectImageFromGallery() {
-
         imageChooser();
     }
 
-    /// capture image from camera
     private void captureImageFromCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         captureImageLauncher.launch(takePictureIntent);
     }
 
-
     void imageChooser() {
-
-        // create an instance of the
-        // intent of the type image
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
-    // this function is triggered when user
-    // selects the image from the imageChooser
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == RESULT_OK) {
-
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
             if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
-                    // update the preview image in the layout
                     ivIPic.setImageURI(selectedImageUri);
                 }
             }

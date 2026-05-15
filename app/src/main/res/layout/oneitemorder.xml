@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="170dp"
     android:layout_margin="4dp"
@@ -14,120 +13,44 @@
         android:layout_height="match_parent"
         android:padding="8dp">
 
-
+        <!-- שם המוצר -->
         <TextView
             android:id="@+id/itemCart_nameItemOrder"
-            android:layout_width="117dp"
-            android:layout_height="49dp"
-            android:layout_marginEnd="84dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="serif"
+            android:gravity="center"
             android:maxLines="2"
-            android:text="שם המוצר"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- כמות -->
         <LinearLayout
-            android:id="@+id/priceAmountContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="vertical"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemCart_nameItemOrder">
 
             <TextView
-                android:id="@+id/itemCart_priceItemOrder"
+                android:id="@+id/itemCart_AmountItemOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:text="₪25.90"
+                android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cardBackgroundColor="@color/white" />
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="serif"
-                    android:text="2 "
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/itemCart_AmountItemOrder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="serif"
-                    android:text="כמות:"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/itemCart_imageItemOrder"
-            android:layout_width="134dp"
-            android:layout_height="114dp"
-            android:layout_marginStart="8dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.08" />
-
-        <Button
-            android:id="@+id/btnEditAmount"
-            android:layout_width="114.2dp"
-            android:layout_height="52dp"
-            android:backgroundTint="@color/white"
-            android:fontFamily="serif"
-            android:text="ערוך כמות"
-            android:textColor="#E2819F"
-            android:textSize="15.4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="86dp"
-            android:layout_height="53dp"
-            android:backgroundTint="@color/white"
-            android:fontFamily="serif"
-            android:text="מחק"
-            android:textColor="#E2819F"
-            android:textSize="15.4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.79"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="101dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,6 +5,23 @@
         <item
             android:id="@+id/nav_home"
             android:title="Home" />
+
+
+        <item
+            android:id="@+id/nav_cakesList"
+            android:title="Cakes" />
+        <item
+            android:id="@+id/nav_elseList"
+            android:title="Others" />
+
+        <item
+            android:id="@+id/nav_showMyCart"
+            android:title="Show Cart" />
+
+        <item
+            android:id="@+id/nav_OrderList"
+            android:title="MyOrders" />
+
         <item
             android:id="@+id/nav_signOut"
             android:title="Sign Out" />

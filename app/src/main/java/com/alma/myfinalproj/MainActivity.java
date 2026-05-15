@@ -11,7 +11,7 @@ import androidx.core.view.GravityCompat;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    Button btnCakes, btnElse, btnUserProfile, btnOrder;
+    Button btnCakes, btnElse, btnUserProfile, btnOrder,btnUserOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btnUserProfile.setOnClickListener(this);
         btnOrder = findViewById(R.id.btnOrder);
         btnOrder.setOnClickListener(this);
+        btnUserOrders = findViewById(R.id.btnUserOrders);
+        btnUserOrders.setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +50,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
         if (v.getId() == btnOrder.getId()) {
             Intent go = new Intent(this, CartActivity.class);
+            startActivity(go);
+        }
+        if (v.getId() == btnUserOrders.getId()) {
+            Intent go = new Intent(this, UserOrders.class);
             startActivity(go);
         }
     }

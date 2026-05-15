@@ -6,17 +6,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import com.alma.myfinalproj.model.User;
 import com.alma.myfinalproj.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserProfile extends AppCompatActivity implements View.OnClickListener {
+public class UserProfile extends BaseActivity implements View.OnClickListener {  // ← שינוי
 
     private static final String TAG = "UserProfileActivity";
     Button btnGoBack;
@@ -28,12 +29,17 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     private Button btnSubmit;
     private DatabaseService databaseService;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_user_profile);
+
+        // ← הוספת כפתור התפריט
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+        if (btnMenu != null) {
+            btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
 
         databaseService = DatabaseService.getInstance();
 
@@ -47,7 +53,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
 
         Log.d(TAG, "Selected user: " + selectedUid);
 
-        // Initialize the EditText fields
         etUserFname = findViewById(R.id.etUserFname);
         etUserLname = findViewById(R.id.etUserLname);
         etUserPhone = findViewById(R.id.etUserPhone);
@@ -73,20 +78,15 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     }
 
     private void showUserProfile() {
-        // Get the user data from database
         databaseService.getUser(new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {
                 selectedUser = user;
-                // Set the user data to the EditText fields
                 etUserFname.setText(user.getFname());
                 etUserLname.setText(user.getLname());
                 etUserPhone.setText(user.getPhone());
                 tvUserEmail.setText(user.getEmail());
                 tvUserPassword.setText(user.getPassword());
-
-                // Update display fields
-                String displayName = user.getFname() + " " + user.getLname();
             }
 
             @Override
@@ -95,7 +95,6 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        // disable the EditText fields if the user is not the current user
         if (!isCurrentUser) {
             tvUserEmail.setEnabled(false);
             tvUserPassword.setEnabled(false);
@@ -112,15 +111,13 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
             return;
         }
-        // Get the updated user data from the EditText fields
+
         String firstName = etUserFname.getText().toString();
         String lastName = etUserLname.getText().toString();
         String phone = etUserPhone.getText().toString();
         String email = tvUserEmail.getText().toString();
         String password = tvUserPassword.getText().toString();
 
-
-        // Update the user object
         selectedUser.setFname(firstName);
         selectedUser.setLname(lastName);
         selectedUser.setPhone(phone);
@@ -128,13 +125,11 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
         selectedUser.setPassword(password);
 
         updateUserInDatabase(selectedUser);
-        // Update the user data in the authentication
         Log.d(TAG, "Updating user profile");
         Log.d(TAG, "Selected user UID: " + selectedUser.getId());
         Log.d(TAG, "Is current user: " + isCurrentUser);
         Log.d(TAG, "User email: " + selectedUser.getEmail());
         Log.d(TAG, "User password: " + selectedUser.getPassword());
-
     }
 
     private void updateUserInDatabase(User user) {
@@ -144,7 +139,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
             public void onCompleted(Void result) {
                 Log.d(TAG, "User profile updated successfully");
                 Toast.makeText(UserProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                showUserProfile(); // Refresh the profile view
+                showUserProfile();
             }
 
             @Override

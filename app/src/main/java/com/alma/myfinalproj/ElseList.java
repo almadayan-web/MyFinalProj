@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.widget.ImageButton;
 
 import com.alma.myfinalproj.adapters.ItemAdapter;
 import com.alma.myfinalproj.model.Item;
@@ -16,7 +18,7 @@ import com.alma.myfinalproj.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ElseList extends AppCompatActivity {
+public class ElseList extends BaseActivity {  // ← שינוי
 
     RecyclerView rvItemList;
     ItemAdapter itemAdapter;
@@ -28,13 +30,18 @@ public class ElseList extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_else_list);
 
+        // ← הוספת כפתור התפריט
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+        if (btnMenu != null) {
+            btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
+
         rvItemList = findViewById(R.id.rv_item_list);
         rvItemList.setLayoutManager(new GridLayoutManager(this, 2));
 
         itemAdapter = new ItemAdapter(itemsList, new ItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Item item) {
-                // Handle user click
                 Log.d("TAG", "item clicked: " + item);
                 Intent intent = new Intent(ElseList.this, ItemProfile.class);
                 intent.putExtra("itemId", item.getId());
@@ -42,9 +49,7 @@ public class ElseList extends AppCompatActivity {
             }
 
             @Override
-            public void onLongItemClick(Item item) {
-
-            }
+            public void onLongItemClick(Item item) {}
         });
         itemAdapter.setItemList(itemsList);
         rvItemList.setAdapter(itemAdapter);
@@ -57,11 +62,9 @@ public class ElseList extends AppCompatActivity {
         DatabaseService.getInstance().getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
             @Override
             public void onCompleted(List<Item> items) {
-
                 if (items != null) {
-
+                    itemsList.clear();  // ← מונע כפילויות
                     for (int i = 0; i < items.size(); i++) {
-
                         if (!items.get(i).getType().contains("עוגה")) {
                             itemsList.add(items.get(i));
                         }
@@ -72,9 +75,7 @@ public class ElseList extends AppCompatActivity {
             }
 
             @Override
-            public void onFailed(Exception e) {
-
-            }
+            public void onFailed(Exception e) {}
         });
     }
 }

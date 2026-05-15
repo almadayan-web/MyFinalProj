@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Locale;
 
 public class Order implements Serializable {
-    protected String destinationDate;
     private String orderId;
     private List<ItemCart> items;
     private double totalPrice;
     private String status;
     private User user;
     private long timestamp;
+    protected String destinationDate;
 
     public Order(String orderId, List<ItemCart> items, double totalPrice, String status, User user, long timestamp, String destinationDate) {
         this.orderId = orderId;
@@ -25,66 +25,34 @@ public class Order implements Serializable {
         this.destinationDate = destinationDate;
     }
 
-
-    public Order() {
-    }
+    public Order() {}
 
     private double calculateTotalPrice() {
         double sum = 0;
         for (ItemCart item : items) {
+            // תוקן - שימוש ב-getItemPrice() במקום getItem().getPrice()
             sum += item.getItemPrice() * item.getAmount();
         }
         return sum;
     }
 
-    public String getOrderId() {
-        return orderId;
-    }
+    public String getOrderId() { return orderId; }
+    public void setOrderId(String orderId) { this.orderId = orderId; }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
+    public List<ItemCart> getItems() { return items; }
+    public void setItems(List<ItemCart> items) { this.items = items; }
 
-    public List<ItemCart> getItems() {
-        return items;
-    }
+    public double getTotalPrice() { return totalPrice; }
+    public void setTotalPrice(double totalPrice) { this.totalPrice = totalPrice; }
 
-    public void setItems(List<ItemCart> items) {
-        this.items = items;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public double getTotalPrice() {
-        return totalPrice;
-    }
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public long getTimestamp() {
-
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
+    public long getTimestamp() { return timestamp; }
+    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
 
     public String getFormattedTimestamp() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
@@ -96,14 +64,8 @@ public class Order implements Serializable {
         return sdf.format(new Date(this.timestamp));
     }
 
-
-    public String getDestinationDate() {
-        return destinationDate;
-    }
-
-    public void setDestinationDate(String destinationDate) {
-        this.destinationDate = destinationDate;
-    }
+    public String getDestinationDate() { return destinationDate; }
+    public void setDestinationDate(String destinationDate) { this.destinationDate = destinationDate; }
 
     @Override
     public String toString() {

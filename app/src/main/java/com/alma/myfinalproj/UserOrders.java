@@ -12,72 +12,53 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alma.myfinalproj.adapters.OrderAdapter;
 import com.alma.myfinalproj.model.Order;
 import com.alma.myfinalproj.services.DatabaseService;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllOrders extends BaseAdminActivity implements View.OnClickListener {
+public class UserOrders extends BaseActivity implements View.OnClickListener {
 
     RecyclerView rvAllOrders;
     OrderAdapter orderAdapter;
     List<Order> orderList = new ArrayList<>();
     Button btnGoBack;
     DatabaseService databaseService;
-
-    View btnShowOptionsOrder;
-    LinearLayout optionsContainerOrder;
-    TextView option1, option2, option3, option4;
     String selectedSort = "without";
+    String  uid;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_all_orders);
+        setContentView(R.layout.activity_user_orders);
 
-
-
-        // ← הוספת כפתור התפריט
         ImageButton btnMenu = findViewById(R.id.btnMenu);
-        if (btnMenu != null) {
-            btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
-        }
-
-        databaseService = DatabaseService.getInstance();
-
-        rvAllOrders = findViewById(R.id.rvAllOrders);
-        rvAllOrders.setLayoutManager(new GridLayoutManager(this, 1));
-
-        btnGoBack = findViewById(R.id.btnGoBack);
+        btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        btnGoBack=findViewById(R.id.btnGoBack);
         btnGoBack.setOnClickListener(this);
-
-        btnShowOptionsOrder = findViewById(R.id.btnShowOptionsOrder);
-        optionsContainerOrder = findViewById(R.id.optionsContainerOrder);
-        option1 = findViewById(R.id.option1);
-        option2 = findViewById(R.id.option2);
-        option3 = findViewById(R.id.option3);
-        option4 = findViewById(R.id.option4);
-
-        btnShowOptionsOrder.setOnClickListener(this);
-        option1.setOnClickListener(this);
-        option2.setOnClickListener(this);
-        option3.setOnClickListener(this);
-        option4.setOnClickListener(this);
-
+         mAuth = FirebaseAuth.getInstance();
+         uid=mAuth.getCurrentUser().getUid();
+        databaseService = DatabaseService.getInstance();
+        rvAllOrders = findViewById(R.id.rvUserOrders);
+        rvAllOrders.setLayoutManager(new GridLayoutManager(this, 1));
         orderAdapter = new OrderAdapter(this, orderList, new OrderAdapter.OnItemClickListener() {
+
             @Override
             public void onOrderClick(Order order) {
                 Log.d("TAG", "order clicked: " + order);
-                Intent intent = new Intent(AllOrders.this, OrderActivity.class);
-                intent.putExtra("orderId", order.getOrderId());
-                startActivity(intent);
+
             }
 
             @Override
@@ -89,7 +70,7 @@ public class AllOrders extends BaseAdminActivity implements View.OnClickListener
     }
 
     private void fetchOrdersFromFirebase() {
-        databaseService.getAllOrders(new DatabaseService.DatabaseCallback<List<Order>>() {
+        databaseService.getUserOrders( uid,new DatabaseService.DatabaseCallback<List<Order>>() {
             @Override
             public void onCompleted(List<Order> orders) {
                 if (orders != null) {
@@ -102,7 +83,7 @@ public class AllOrders extends BaseAdminActivity implements View.OnClickListener
             @Override
             public void onFailed(Exception e) {
                 Log.e("TAG", "Failed to load orders", e);
-                Toast.makeText(AllOrders.this, "שגיאה בטעינת נתונים", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserOrders.this, "שגיאה בטעינת נתונים", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -134,31 +115,9 @@ public class AllOrders extends BaseAdminActivity implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        int id = view.getId();
-
-        if (id == btnGoBack.getId()) {
-            Intent go = new Intent(this, AdminActivity.class);
+        if (view.getId() == btnGoBack.getId()) {
+            Intent go = new Intent(this, MainActivity.class);
             startActivity(go);
-        } else if (id == R.id.btnShowOptionsOrder) {
-            int visibility = (optionsContainerOrder.getVisibility() == View.GONE)
-                    ? View.VISIBLE : View.GONE;
-            optionsContainerOrder.setVisibility(visibility);
-        } else if (id == R.id.option1) {
-            selectedSort = "without";
-            applyFiltersAndSorting();
-            optionsContainerOrder.setVisibility(View.GONE);
-        } else if (id == R.id.option2) {
-            selectedSort = "date ftl";
-            applyFiltersAndSorting();
-            optionsContainerOrder.setVisibility(View.GONE);
-        } else if (id == R.id.option3) {
-            selectedSort = "date ltf";
-            applyFiltersAndSorting();
-            optionsContainerOrder.setVisibility(View.GONE);
-        } else if (id == R.id.option4) {
-            selectedSort = "committed";
-            applyFiltersAndSorting();
-            optionsContainerOrder.setVisibility(View.GONE);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.alma.myfinalproj;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,34 +9,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alma.myfinalproj.adapters.CartAdapter;
 import com.alma.myfinalproj.model.Cart;
-import com.alma.myfinalproj.model.ItemCart;
 import com.alma.myfinalproj.model.Order;
 import com.alma.myfinalproj.model.User;
 import com.alma.myfinalproj.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-public class CartActivity extends AppCompatActivity implements View.OnClickListener {
+public class CartActivity extends BaseActivity implements View.OnClickListener {  // ← שינוי
 
     Button btnGoBackCart;
-
     RecyclerView rcCart;
-
     Cart cart = null;
-    Button btnBePayment, btnEditAmount, btnDelete;
+    Button btnBePayment;
     TextView tvprice;
     DatabaseService databaseService;
     String uid;
@@ -51,22 +48,22 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cart);
 
+        // ← הוספת כפתור התפריט
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+        if (btnMenu != null) {
+            btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
+
         btnGoBackCart = findViewById(R.id.btnGoBackCart);
         btnGoBackCart.setOnClickListener(this);
-        //btnEditAmount= findViewById(R.id.btnEditAmount);
-        //btnEditAmount.setOnClickListener(this);
-        //btnDelete= findViewById(R.id.btnDelete);
-        //btnDelete.setOnClickListener(this);
         btnBePayment = findViewById(R.id.btnOrderAndPay);
         btnBePayment.setOnClickListener(this);
-
 
         rcCart = findViewById(R.id.rvCart);
         tvprice = findViewById(R.id.tvTotal);
 
         etDestDate = findViewById(R.id.etDestDate);
         etDestDate.setOnClickListener(v -> {
-
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
@@ -79,17 +76,13 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                     },
                     year, month, day
             );
-
             datePickerDialog.show();
         });
 
-
         rcCart.setLayoutManager(new LinearLayoutManager(this));
-
 
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getCurrentUser().getUid();
-
 
         databaseService = DatabaseService.getInstance();
         databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
@@ -99,27 +92,29 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onFailed(Exception e) {
-                return;
-            }
+            public void onFailed(Exception e) {}
         });
 
-        // אתחול סל ריק בתחילה כדי למנוע NullPointer
-        // טען את הסל מהמסד
         databaseService.getCart(uid, new DatabaseService.DatabaseCallback<Cart>() {
             @Override
             public void onCompleted(Cart resultCart) {
                 if (resultCart != null && resultCart.getItems() != null) {
                     cart = resultCart;
+                } else {
+                    cart = new Cart();
+                }
 
-                    Toast.makeText(CartActivity.this, "" + cart.toString(), Toast.LENGTH_SHORT).show();
-                } else cart = new Cart();
+                cartAdapter = new CartAdapter(CartActivity.this, cart, () -> {
+                    tvprice.setText(cart.getTotalPrice() + "");
+                    goUpdateCart(cart);
+                });
 
-                cartAdapter = new CartAdapter(CartActivity.this, cart);
                 rcCart.setAdapter(cartAdapter);
                 cartAdapter.notifyDataSetChanged();
-                tvprice.setText(cart.getTotalPrice() + "");
 
+                if (cart != null && cart.getTotalPrice() != 0) {
+                    tvprice.setText(cart.getTotalPrice() + "");
+                }
             }
 
             @Override
@@ -129,18 +124,7 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(CartActivity.this, "שגיאה בטעינת הסל", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        //adapter = new ItemsAdapter(cart.getItems());
-        //rcCart.setAdapter(adapter);
     }
-
-    public void beyomdPayment(View view) {
-        Intent intent = new Intent(CartActivity.this, Payment.class);
-        intent.putExtra("total", cart.getTotal());
-        startActivity(intent);
-    }
-
 
     private void processOrder() {
         if (cart == null || cart.getItems().isEmpty()) {
@@ -148,32 +132,25 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        // המרת הפריטים לפריטים קלים (בלי תמונות)
-        List<ItemCart> lightItems = new ArrayList<>();
-        for (ItemCart originalItem : cart.getItems()) {
-            ItemCart light = new ItemCart(
-                    originalItem.getItemId(),
-                    originalItem.getItemName(),
-                    originalItem.getItemPrice(),
-                    originalItem.getAmount()
-            );
-            lightItems.add(light);
-        }
-
         String orderId = databaseService.generateOrderId();
-        Order order = new Order(orderId, lightItems, cart.getTotal(), "new", user, System.currentTimeMillis(), destenationDate);
-        order.setTimestamp(System.currentTimeMillis());
+        Order order = new Order(orderId, cart.getItems(), cart.getTotal(), "new", user, System.currentTimeMillis(), destenationDate);
 
         databaseService.createNewOreder(order, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                Toast.makeText(CartActivity.this, "הזמנה נשמרה!", Toast.LENGTH_SHORT).show();
                 double total = order.getTotalPrice();
                 cart = new Cart();
                 goUpdateCart(cart);
-                Intent go = new Intent(CartActivity.this, Payment.class);
-                go.putExtra("total", total);
-                startActivity(go);
+
+                new AlertDialog.Builder(CartActivity.this)
+                        .setTitle("ההזמנה בוצעה בהצלחה! 🎉")
+                        .setMessage("לתיאום ושאלות ניתן ליצור קשר:\n\n📞 0548185110")
+                        .setPositiveButton("אישור", (dialog, which) -> {
+                            Intent go = new Intent(CartActivity.this, Payment.class);
+                            go.putExtra("total", total);
+                            startActivity(go);
+                        })
+                        .show();
             }
 
             @Override
@@ -183,40 +160,24 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-
     public void goUpdateCart(Cart cart) {
         databaseService.updateCart(cart, uid, new DatabaseService.DatabaseCallback<Void>() {
             @Override
-            public void onCompleted(Void object) {
-
-            }
+            public void onCompleted(Void object) {}
 
             @Override
-            public void onFailed(Exception e) {
-
-            }
+            public void onFailed(Exception e) {}
         });
-
-
     }
 
     @Override
     public void onClick(View view) {
-
         if (view == btnBePayment) {
-
             destenationDate = etDestDate.getText().toString();
-            // בדיקות תקינות
             processOrder();
         } else if (view == btnGoBackCart) {
-
             Intent go = new Intent(CartActivity.this, MainActivity.class);
             startActivity(go);
         }
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
     }
 }

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_layout"
+    android:id="@+id/nav_layoutA"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <!-- תוכן המסך הרגיל -->
     <FrameLayout
-        android:id="@+id/content_frame"
+        android:id="@+id/content_frameA"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <!-- תפריט הצד - חייב להיות מחוץ ל-FrameLayout -->
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/nav_viewA"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/nav_menu" />
+        app:menu="@menu/admin_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

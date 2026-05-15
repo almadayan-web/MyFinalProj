@@ -2,10 +2,12 @@ package com.alma.myfinalproj;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +17,7 @@ import com.alma.myfinalproj.services.DatabaseService;
 
 import java.util.List;
 
-public class UsersListActivity extends AppCompatActivity {
+public class UsersListActivity extends BaseAdminActivity {
 
     private static final String TAG = "UsersListActivity";
     DatabaseService databaseService;
@@ -27,6 +29,14 @@ public class UsersListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_users_list);
+
+
+
+        // ← הוספת כפתור התפריט
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+        if (btnMenu != null) {
+            btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
 
         databaseService = DatabaseService.getInstance();
         RecyclerView usersList = findViewById(R.id.rv_users_list);

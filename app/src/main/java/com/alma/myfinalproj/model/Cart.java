@@ -30,6 +30,7 @@ public class Cart {
 
         boolean found = false;
         for (int i = 0; i < this.items.size(); i++) {
+            // תוקן - השוואה לפי itemId במקום getItem().getId()
             if (this.items.get(i).getItemId().equals(itemCart.getItemId())) {
                 found = true;
                 this.items.get(i).setAmount(this.items.get(i).getAmount() + 1);
@@ -47,6 +48,7 @@ public class Cart {
         double sum = 0;
         if (this.items == null) return 0;
         for (ItemCart item : this.items) {
+            // תוקן - שימוש ב-getItemPrice() במקום getItem().getPrice()
             sum += item.getItemPrice() * item.getAmount();
         }
         return sum;

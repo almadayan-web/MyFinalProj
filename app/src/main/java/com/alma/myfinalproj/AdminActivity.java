@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 public class AdminActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,6 +19,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin);
+        // ← הוספת כפתור התפריט
+
 
         btnAddItem = findViewById(R.id.btnGoAddItem);
         btnAddItem.setOnClickListener(this);
@@ -31,22 +35,18 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.getId() == btnAddItem.getId()) {
-
             Intent go = new Intent(this, AddItem.class);
             startActivity(go);
         }
         if (v.getId() == btnListUser.getId()) {
-
             Intent go = new Intent(this, UsersListActivity.class);
             startActivity(go);
         }
         if (v.getId() == btnGoListItem.getId()) {
-
             Intent go = new Intent(this, ItemsList.class);
             startActivity(go);
         }
         if (v.getId() == btnShowOrders.getId()) {
-
             Intent go = new Intent(this, AllOrders.class);
             startActivity(go);
         }

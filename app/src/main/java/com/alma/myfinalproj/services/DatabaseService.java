@@ -554,6 +554,23 @@ public class DatabaseService {
             callback.onCompleted(tList);
         });
     }
+    public void getOrder(@NotNull final String orderId, @NotNull final DatabaseCallback<Order> callback) {
+        getData(ORDER_PATH + "/" + orderId, Order.class, callback);
+    }
+    public void updateOrder(@NotNull final Order order, @Nullable final DatabaseCallback<Void> callback) {
+        // עדכון במסלול הראשי
+        writeData(ORDER_PATH + "/" + order.getOrderId(), order, new DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                // עדכון גם במסלול של המשתמש
+                writeData(USER_ORDER_PATH + "/" + order.getUser().getId() + "/" + order.getOrderId(), order, callback);
+            }
 
+            @Override
+            public void onFailed(Exception e) {
+                if (callback != null) callback.onFailed(e);
+            }
+        });
+    }
 
 }

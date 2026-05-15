@@ -44,6 +44,11 @@ public abstract class BaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_signOut) {
             showLogoutDialog();
         }
+        if (id == R.id.nav_OrderList) {
+            Intent intent = new Intent(this, UserOrders.class);
+            startActivity(intent);
+            finish();
+        }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

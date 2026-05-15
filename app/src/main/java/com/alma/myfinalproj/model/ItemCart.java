@@ -14,40 +14,19 @@ public class ItemCart {
         this.amount = amount;
     }
 
-    public ItemCart() {
-    }
+    public ItemCart() {}
 
-    public String getItemId() {
-        return itemId;
-    }
+    public String getItemId() { return itemId; }
+    public void setItemId(String itemId) { this.itemId = itemId; }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
-    }
+    public String getItemName() { return itemName; }
+    public void setItemName(String itemName) { this.itemName = itemName; }
 
-    public String getItemName() {
-        return itemName;
-    }
+    public double getItemPrice() { return itemPrice; }
+    public void setItemPrice(double itemPrice) { this.itemPrice = itemPrice; }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public double getItemPrice() {
-        return itemPrice;
-    }
-
-    public void setItemPrice(double itemPrice) {
-        this.itemPrice = itemPrice;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+    public int getAmount() { return amount; }
+    public void setAmount(int amount) { this.amount = amount; }
 
     @Override
     public String toString() {

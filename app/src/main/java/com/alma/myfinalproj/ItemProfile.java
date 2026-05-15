@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import com.alma.myfinalproj.model.Cart;
 import com.alma.myfinalproj.model.Item;
@@ -19,7 +20,7 @@ import com.alma.myfinalproj.services.DatabaseService;
 import com.alma.myfinalproj.utils.ImageUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ItemProfile extends AppCompatActivity implements View.OnClickListener {
+public class ItemProfile extends BaseActivity implements View.OnClickListener {  // ← שינוי
 
     Button btnItemClose, btnAddToCart;
     Item currentItem = null;
@@ -27,17 +28,25 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
 
     TextView tvItemType, tvItemName, tvItemSize, tvItemPrice, tvItemDetails;
     ImageView ivItemPic;
+    private String itemId = "";
+
     DatabaseService databaseService;
     Cart userCart = null;
     String uid;
+
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private String itemId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_item_profile);
+
+        // ← הוספת כפתור התפריט
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+        if (btnMenu != null) {
+            btnMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+        }
 
         initViews();
 
@@ -63,8 +72,7 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
                 }
 
                 @Override
-                public void onFailed(Exception e) {
-                }
+                public void onFailed(Exception e) {}
             });
         }
     }
@@ -89,7 +97,6 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
         }
 
         if (v == btnAddToCart) {
-            // שינוי כאן - בלי לשמור את כל האובייקט Item
             ItemCart newItemCart = new ItemCart(
                     currentItem.getId(),
                     currentItem.getName(),
@@ -115,8 +122,7 @@ public class ItemProfile extends AppCompatActivity implements View.OnClickListen
                         }
 
                         @Override
-                        public void onFailed(Exception e) {
-                        }
+                        public void onFailed(Exception e) {}
                     });
                 }
 
